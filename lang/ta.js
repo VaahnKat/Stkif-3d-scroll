@@ -340,5 +340,27 @@ window.STK_TRANSLATIONS.ta = {
     "We are looking for partners who want to support our events, sports and youth activities. Your logo will be shown here and at our events.":
         "எங்கள் நிகழ்வுகள், விளையாட்டு, இளைஞர் செயல்பாடுகளை ஆதரிக்க விரும்பும் கூட்டாளர்களைத் தேடுகிறோம். உங்கள் சின்னம் இங்கும் எங்கள் நிகழ்வுகளிலும் காட்டப்படும்.",
     "Become a sponsor":
-        "ஆதரவாளராகுங்கள்"
+        "ஆதரவாளராகுங்கள்",
+
+    // The Climb (experience.html)
+    "Story chapters":
+        "கதையின் பகுதிகள்",
+    "Dawn":
+        "விடியல்",
+    "Sunrise":
+        "சூரிய உதயம்",
+    "Summit":
+        "சிகரம்",
+    "Scroll to climb":
+        "மலை ஏற கீழே உருட்டுங்கள்",
+    "Skip to the summit":
+        "நேராகச் சிகரத்திற்குச் செல்லுங்கள்",
+    "Climb with us":
+        "எங்களுடன் சேர்ந்து ஏறுங்கள்",
+    "Dancers and members of the club on stage at a celebration":
+        "ஒரு கொண்டாட்டத்தில் மேடையில் நடனக் கலைஞர்களும் சங்க உறுப்பினர்களும்",
+    "A young runner getting ready for a race":
+        "ஓட்டப் போட்டிக்குத் தயாராகும் ஒரு இளம் ஓட்டக்காரர்",
+    "Club families together on the lawn at a summer get-together":
+        "கோடைக்கால ஒன்றுகூடலில் புல்வெளியில் ஒன்றாகச் சங்கக் குடும்பங்கள்"
 };

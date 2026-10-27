@@ -340,5 +340,27 @@ window.STK_TRANSLATIONS.sv = {
     "We are looking for partners who want to support our events, sports and youth activities. Your logo will be shown here and at our events.":
         "Vi söker partner som vill stödja våra evenemang, vår idrott och våra ungdomsaktiviteter. Er logotyp visas här och på våra evenemang.",
     "Become a sponsor":
-        "Bli sponsor"
+        "Bli sponsor",
+
+    // The Climb (experience.html)
+    "Story chapters":
+        "Berättelsens kapitel",
+    "Dawn":
+        "Gryning",
+    "Sunrise":
+        "Soluppgång",
+    "Summit":
+        "Toppen",
+    "Scroll to climb":
+        "Scrolla för att klättra",
+    "Skip to the summit":
+        "Hoppa direkt till toppen",
+    "Climb with us":
+        "Klättra med oss",
+    "Dancers and members of the club on stage at a celebration":
+        "Dansare och medlemmar i föreningen på scenen vid ett firande",
+    "A young runner getting ready for a race":
+        "En ung löpare gör sig redo för ett lopp",
+    "Club families together on the lawn at a summer get-together":
+        "Föreningens familjer tillsammans på gräsmattan vid en sommarträff"
 };
