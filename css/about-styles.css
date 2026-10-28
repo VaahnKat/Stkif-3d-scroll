@@ -548,3 +548,89 @@ section#main-container {
 @media (prefers-reduced-motion: reduce) {
     .thoranam .leaf { animation: none; }
 }
+
+/* ---------- Our roots in India ---------- */
+.about-roots {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 14px 0 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--t-accent-dark);
+}
+
+/* a thin saffron-white-green rule either side, like the Indian tricolour */
+.about-roots::before,
+.about-roots::after {
+    content: "";
+    width: 28px;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(#FF9933 0 33.3%, #FFFFFF 33.3% 66.6%, #138808 66.6%);
+    box-shadow: 0 0 0 1px var(--t-line);
+}
+
+.india-card {
+    text-align: left;
+}
+
+.india-flags {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 4px 0 14px;
+}
+
+.india-flags .flag {
+    width: 66px;
+    height: auto;
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px var(--t-line), 0 4px 10px var(--t-shadow-color);
+}
+
+/* a small gold knot of friendship between the two flags */
+.india-knot {
+    width: 18px;
+    height: 10px;
+    border: 2px solid var(--t-gold);
+    border-radius: 50%;
+}
+
+#about-page .india-card h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.india-facts {
+    list-style: none;
+    margin: 1.25rem 0 0;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    background: var(--t-soft-2);
+    border: 1px solid var(--t-line);
+    display: grid;
+    gap: 0.6rem;
+}
+
+.india-facts li {
+    position: relative;
+    padding-left: 1.6rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--t-text);
+}
+
+/* each fact marked with a tiny Ashoka chakra-like wheel */
+.india-facts li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.35em;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1.5px solid var(--t-accent-dark);
+    background: repeating-conic-gradient(var(--t-accent-dark) 0deg 2deg, transparent 2deg 15deg);
+}

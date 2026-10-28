@@ -302,3 +302,10 @@ div#hero-image {
         align-items: center;
     }
 }
+/* Our roots in India (home page intro) */
+.about-roots {
+    margin: 12px auto 0;
+    max-width: 640px;
+    font-weight: 700;
+    color: var(--t-accent-dark, #8a6418);
+}

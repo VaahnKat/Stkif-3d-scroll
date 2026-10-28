@@ -378,5 +378,33 @@ window.STK_TRANSLATIONS.ta = {
     "Kaniyan Pungundranar, Puranānūru 192, about 2,000 years ago":
         "கணியன் பூங்குன்றனார், புறநானூறு 192, ஏறத்தாழ 2,000 ஆண்டுகளுக்கு முன்பு",
     "Written in Tamil two thousand years ago, it is still the spirit of our club.":
-        "இரண்டாயிரம் ஆண்டுகளுக்கு முன் தமிழில் எழுதப்பட்ட இவ்வரிகளே இன்றும் எங்கள் சங்கத்தின் உயிர்நாடி."
+        "இரண்டாயிரம் ஆண்டுகளுக்கு முன் தமிழில் எழுதப்பட்ட இவ்வரிகளே இன்றும் எங்கள் சங்கத்தின் உயிர்நாடி.",
+
+    // Our roots in India
+    "Our roots":
+        "எங்கள் வேர்கள்",
+    "Proudly from India":
+        "இந்தியர் என்பதில் பெருமை கொள்கிறோம்",
+    "Our roots are in <strong>Tamil Nadu, India</strong>: the home of the Tamil language, of great temple towns such as Madurai and Thanjavur, of Carnatic music and Bharatanatyam, and of the Nilgiri hills.":
+        "எங்கள் வேர்கள் <strong>இந்தியாவின் தமிழ்நாட்டில்</strong> உள்ளன: தமிழ் மொழியின் தாயகம், மதுரை, தஞ்சாவூர் போன்ற பெருமைமிகு கோயில் நகரங்கள், கர்நாடக இசை, பரதநாட்டியம், நீலகிரி மலைகள் ஆகியவற்றின் தாயகம்.",
+    "We carry India with us wherever we go: its warmth, its respect for elders and guests, and its spirit of <em>unity in diversity</em>. In Stockholm we are proud to be part of the Indian community, and to share India's rich culture with our Swedish neighbours.":
+        "நாங்கள் எங்கு சென்றாலும் இந்தியாவை எங்களுடன் சுமந்து செல்கிறோம்: அதன் அன்பு, பெரியோர்களையும் விருந்தினர்களையும் மதிக்கும் பண்பு, <em>வேற்றுமையில் ஒற்றுமை</em> என்ற உணர்வு. ஸ்டாக்ஹோமில் இந்திய சமூகத்தின் ஓர் அங்கமாக இருப்பதிலும், இந்தியாவின் வளமான பண்பாட்டை எங்கள் ஸ்வீடிஷ் அண்டை வீட்டாருடன் பகிர்வதிலும் பெருமை கொள்கிறோம்.",
+    "<strong>Tamil</strong>, the language at the heart of our club, was the first language declared a classical language by the Government of India, in 2004.":
+        "எங்கள் சங்கத்தின் இதயமான <strong>தமிழ்</strong>, 2004-ஆம் ஆண்டில் இந்திய அரசால் செம்மொழியாக அறிவிக்கப்பட்ட முதல் மொழியாகும்.",
+    "Our mascot, the <strong>Nilgiri tahr</strong>, is the state animal of Tamil Nadu. It lives only in the Western Ghats, a UNESCO World Heritage Site.":
+        "எங்கள் சின்னமான <strong>நீலகிரி வரையாடு</strong> தமிழ்நாட்டின் மாநில விலங்கு. யுனெஸ்கோ உலகப் பாரம்பரியச் சின்னமான மேற்குத் தொடர்ச்சி மலையில் மட்டுமே இது வாழ்கிறது.",
+    "Through culture, sport and family, we hope to be a small bridge of friendship between <strong>India and Sweden</strong>.":
+        "பண்பாடு, விளையாட்டு, குடும்பம் வழியாக <strong>இந்தியாவுக்கும் ஸ்வீடனுக்கும்</strong> இடையே ஒரு சிறிய நட்புப் பாலமாக இருக்க விரும்புகிறோம்.",
+    "Rooted in Tamil Nadu, India":
+        "இந்தியாவின் தமிழ்நாட்டில் வேரூன்றியது",
+    "Roots: Tamil Nadu, India":
+        "வேர்கள்: தமிழ்நாடு, இந்தியா",
+    "With our roots in Tamil Nadu, India, we are proud to share India's rich culture with Sweden.":
+        "இந்தியாவின் தமிழ்நாட்டில் வேரூன்றிய நாங்கள், இந்தியாவின் வளமான பண்பாட்டை ஸ்வீடனுடன் பகிர்வதில் பெருமை கொள்கிறோம்.",
+    "From the Nilgiri hills of India to Stockholm":
+        "இந்தியாவின் நீலகிரி மலைகளிலிருந்து ஸ்டாக்ஹோம் வரை",
+    "Flag of India":
+        "இந்தியக் கொடி",
+    "Flag of Sweden":
+        "ஸ்வீடன் கொடி"
 };

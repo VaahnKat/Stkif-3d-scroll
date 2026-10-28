@@ -378,5 +378,33 @@ window.STK_TRANSLATIONS.sv = {
     "Kaniyan Pungundranar, Puranānūru 192, about 2,000 years ago":
         "Kaniyan Pungundranar, Puranānūru 192, för cirka 2 000 år sedan",
     "Written in Tamil two thousand years ago, it is still the spirit of our club.":
-        "Skrivet på tamil för tvåtusen år sedan – och fortfarande andan i vår förening."
+        "Skrivet på tamil för tvåtusen år sedan – och fortfarande andan i vår förening.",
+
+    // Our roots in India
+    "Our roots":
+        "Våra rötter",
+    "Proudly from India":
+        "Stolta över att komma från Indien",
+    "Our roots are in <strong>Tamil Nadu, India</strong>: the home of the Tamil language, of great temple towns such as Madurai and Thanjavur, of Carnatic music and Bharatanatyam, and of the Nilgiri hills.":
+        "Våra rötter finns i <strong>Tamil Nadu, Indien</strong>: hemmet för det tamilska språket, för stora tempelstäder som Madurai och Thanjavur, för karnatisk musik och bharatanatyam, och för Nilgiribergen.",
+    "We carry India with us wherever we go: its warmth, its respect for elders and guests, and its spirit of <em>unity in diversity</em>. In Stockholm we are proud to be part of the Indian community, and to share India's rich culture with our Swedish neighbours.":
+        "Vi bär Indien med oss vart vi än går: dess värme, dess respekt för äldre och gäster och dess anda av <em>enhet i mångfald</em>. I Stockholm är vi stolta över att vara en del av den indiska gemenskapen och att dela Indiens rika kultur med våra svenska grannar.",
+    "<strong>Tamil</strong>, the language at the heart of our club, was the first language declared a classical language by the Government of India, in 2004.":
+        "<strong>Tamil</strong>, språket i hjärtat av vår förening, var det första språket som Indiens regering förklarade som klassiskt språk, år 2004.",
+    "Our mascot, the <strong>Nilgiri tahr</strong>, is the state animal of Tamil Nadu. It lives only in the Western Ghats, a UNESCO World Heritage Site.":
+        "Vår maskot, <strong>nilgiritahren</strong>, är delstaten Tamil Nadus djur. Den lever bara i Västra Ghats, ett av Unescos världsarv.",
+    "Through culture, sport and family, we hope to be a small bridge of friendship between <strong>India and Sweden</strong>.":
+        "Genom kultur, idrott och familj hoppas vi kunna vara en liten bro av vänskap mellan <strong>Indien och Sverige</strong>.",
+    "Rooted in Tamil Nadu, India":
+        "Med rötter i Tamil Nadu, Indien",
+    "Roots: Tamil Nadu, India":
+        "Rötter: Tamil Nadu, Indien",
+    "With our roots in Tamil Nadu, India, we are proud to share India's rich culture with Sweden.":
+        "Med våra rötter i Tamil Nadu, Indien, är vi stolta över att dela Indiens rika kultur med Sverige.",
+    "From the Nilgiri hills of India to Stockholm":
+        "Från Indiens Nilgiriberg till Stockholm",
+    "Flag of India":
+        "Indiens flagga",
+    "Flag of Sweden":
+        "Sveriges flagga"
 };
