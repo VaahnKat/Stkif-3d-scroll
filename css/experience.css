@@ -163,11 +163,6 @@
 
 /* ---------- The Nilgiri tahr ---------- */
 
-/* A faint rim of sunlight keeps the tahr visible against dark mountains */
-.climber {
-    filter: drop-shadow(0 0 1.5px color-mix(in srgb, var(--t-sun) 60%, transparent));
-}
-
 /* Soft shadow where the hooves meet the ground */
 .tahr-shadow {
     fill: var(--t-footer-2);
@@ -177,49 +172,6 @@
 /* Turning round at a bend: a quick squash through side-on, like a real turn */
 .tahr-turn {
     transition: transform 0.35s ease-in-out;
-}
-
-/* Small signs of life, even when the scroll stops: the tail flicks and an ear twitches */
-.story-live .tahr-tail {
-    transform-box: fill-box;
-    transform-origin: 100% 0;
-    animation: tail-flick 3.4s ease-in-out infinite;
-}
-
-@keyframes tail-flick {
-    0%, 80%, 100% { transform: none; }
-    85% { transform: rotate(-24deg); }
-    90% { transform: rotate(6deg); }
-    94% { transform: rotate(-14deg); }
-}
-
-.story-live .tahr-ear {
-    transform-box: fill-box;
-    transform-origin: 100% 50%;
-    animation: ear-twitch 5.2s ease-in-out infinite;
-}
-
-@keyframes ear-twitch {
-    0%, 88%, 100% { transform: none; }
-    91% { transform: rotate(18deg); }
-    95% { transform: rotate(-4deg); }
-}
-
-/* At the summit the tahr lifts its head, looks out over the valley, then back */
-.tahr-head {
-    transform-box: fill-box;
-    transform-origin: 30% 92%;
-    transition: transform 0.8s ease;
-}
-
-.summit-reached .tahr-head {
-    animation: tahr-look 6s ease-in-out 0.4s infinite;
-}
-
-@keyframes tahr-look {
-    0%, 100% { transform: rotate(0); }
-    18%, 46% { transform: rotate(-9deg); }
-    60%, 82% { transform: rotate(5deg); }
 }
 
 /* ---------- Birds at sunrise (only while the scene moves) ---------- */

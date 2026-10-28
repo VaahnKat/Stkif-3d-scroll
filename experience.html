@@ -95,70 +95,18 @@
                     <path style="stroke: var(--t-heading)" stroke-width="3" stroke-linecap="round" d="M776 402 V336"/>
                     <path style="fill: var(--t-gold)" d="M777 336 L810 344 L777 354 Z"/>
                 </g>
-                <!-- The Nilgiri tahr. js/experience.js walks it up the trail: it turns at each bend,
-                     leans into the slope and moves its legs in a real four-beat walk. -->
+                <!-- The Nilgiri tahr. js/experience.js walks it up the trail: it turns at each bend
+                     and leans into the slope. -->
                 <g class="climber" transform="translate(720 362)">
                     <g class="tahr-turn">
-                        <ellipse class="tahr-shadow" cx="2" cy="0.5" rx="36" ry="3.2"/>
+                        <ellipse class="tahr-shadow" cx="0" cy="0" rx="38" ry="3.4"/>
                         <g class="tahr-lean">
-                    <g transform="scale(0.78)">
-                        <g class="tahr">
-                          <defs>
-                            <linearGradient id="tahr-coat" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0" stop-color="#7a5238"/>
-                              <stop offset="0.55" stop-color="#55382a"/>
-                              <stop offset="1" stop-color="#3b261b"/>
-                            </linearGradient>
-                            <linearGradient id="tahr-horn" x1="0" y1="0" x2="1" y2="1">
-                              <stop offset="0" stop-color="#7b7062"/>
-                              <stop offset="1" stop-color="#3d362f"/>
-                            </linearGradient>
-                          </defs>
-                          <!-- far legs (behind the body, in shadow) -->
-                          <g class="leg leg-fh" transform="translate(-27 -44)" fill="#24170f">
-                            <g class="seg-top"><path d="M-8 -4 C-9 8 -5 17 -1 23 L5 21 C6 11 7 2 6 -6 Z"/>
-                              <g class="seg-low" transform="translate(2 21)"><path d="M-3 0 L-2.6 17 L2.2 17 L3 0 Z"/><path d="M-3 16 L2.6 16 L3.4 21 L-3 21 Z" fill="#120b07"/></g></g>
-                          </g>
-                          <g class="leg leg-ff" transform="translate(21 -39)" fill="#24170f">
-                            <g class="seg-top"><path d="M-6 -4 C-7 6 -4 15 -3 20 L3 20 C4 13 6 5 6 -4 Z"/>
-                              <g class="seg-low" transform="translate(0 19.5)"><path d="M-3 0 L-2.5 15.5 L2.5 15.5 L3 0 Z"/><path d="M-3 15 L3 15 L3.6 19.5 L-3 19.5 Z" fill="#120b07"/></g></g>
-                          </g>
-                          <g class="tahr-body">
-                            <!-- tail -->
-                            <path class="tahr-tail" d="M-41 -52 C-46 -50 -48 -45 -46 -41 C-43 -43 -40 -47 -38 -50 Z" fill="#3b261b"/>
-                            <!-- torso -->
-                            <path d="M-40 -51 C-45 -42 -41 -31 -31 -29 C-18 -27 0 -27 12 -28 C23 -29 30 -33 32 -42 C34 -51 30 -59 21 -61 C6 -64 -14 -61 -28 -61 C-36 -60 -39 -56 -40 -51 Z" fill="url(#tahr-coat)"/>
-                            <!-- light saddle patch of an adult "saddleback" -->
-                            <path d="M-25 -58 C-12 -62 4 -62 13 -59 C7 -53 -12 -52 -26 -54 Z" fill="#a8977f" opacity="0.75"/>
-                            <!-- muscle shading: shoulder and haunch -->
-                            <path d="M-38 -48 C-35 -40 -29 -35 -21 -34 C-27 -39 -30 -45 -31 -52 Z" fill="#2e1e15" opacity="0.22"/>
-                            <path d="M15 -55 C20 -49 22 -42 21 -34 C27 -38 29 -46 26 -53 Z" fill="#2e1e15" opacity="0.22"/>
-                            <!-- head and neck -->
-                            <g class="tahr-head">
-                              <path d="M14 -58 C22 -67 31 -74 38 -78 L49 -71 C43 -61 37 -49 31 -38 C25 -42 18 -50 14 -58 Z" fill="#4c3225"/>
-                              <path d="M22 -66 C28 -70 33 -73 37 -76" stroke="#6b4935" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
-                              <path d="M36 -80 C43 -82 50 -78 57 -69 C60 -65 63 -61 62 -58 C61 -55 57 -55 53 -57 L41 -65 C37 -68 34 -75 36 -80 Z" fill="#452d21"/>
-                              <path d="M52 -66 C56 -63 60 -61 62 -59 C62 -56 59 -55 56 -56 C53 -58 51 -62 52 -66 Z" fill="#7d604e"/>
-                              <circle cx="60.2" cy="-59" r="0.9" fill="#120b07"/>
-                              <path class="tahr-ear" d="M38 -75 C34 -77 30 -77 28 -75.5 C31 -73.5 35 -73 38 -73 Z" fill="#33211a"/>
-                              <circle cx="45.2" cy="-75.4" r="1.6" fill="#120b07"/>
-                              <circle cx="45.7" cy="-75.9" r="0.5" fill="#f3ead6"/>
-                              <!-- short, ridged horns curving back -->
-                              <path d="M33 -79 C33 -86 28 -90 20 -88 C16 -87 14 -85 13 -82 C17 -84 22 -84 26 -81 C29 -79 30 -76 31 -75 C34 -75 37 -77 39 -79 Z" fill="url(#tahr-horn)"/>
-                              <path d="M34 -80 C32 -84 27 -86 21 -85" stroke="#9a8f80" stroke-width="0.9" fill="none" stroke-linecap="round" opacity="0.7"/>
+                            <!-- Three painted leg positions; js/experience.js blends between them as it walks -->
+                            <g class="tahr-photo">
+                                <image class="tahr-frame" href="images/story/tahr-walk-1.webp" x="-46.2" y="-89" width="92" height="89.3" opacity="0"/>
+                                <image class="tahr-frame" href="images/story/tahr-walk-2.webp" x="-46.2" y="-89" width="92" height="89.3" opacity="0"/>
+                                <image class="tahr-frame" href="images/story/tahr-walk-3.webp" x="-46.2" y="-89" width="92" height="89.3"/>
                             </g>
-                          </g>
-                          <!-- near legs -->
-                          <g class="leg leg-nh" transform="translate(-25 -44)">
-                            <g class="seg-top"><path d="M-8 -4 C-9 8 -5 17 -1 23 L5 21 C6 11 7 2 6 -6 Z" fill="#4a3123"/>
-                              <g class="seg-low" transform="translate(2 21)"><path d="M-3 0 L-2.6 17 L2.2 17 L3 0 Z" fill="#33231a"/><path d="M-3 16 L2.6 16 L3.4 21 L-3 21 Z" fill="#160e09"/></g></g>
-                          </g>
-                          <g class="leg leg-nf" transform="translate(23 -39)">
-                            <g class="seg-top"><path d="M-6 -4 C-7 6 -4 15 -3 20 L3 20 C4 13 6 5 6 -4 Z" fill="#4a3123"/>
-                              <g class="seg-low" transform="translate(0 19.5)"><path d="M-3 0 L-2.5 15.5 L2.5 15.5 L3 0 Z" fill="#33231a"/><path d="M-3 15 L3 15 L3.6 19.5 L-3 19.5 Z" fill="#160e09"/></g></g>
-                          </g>
-                        </g>
-                    </g>
                         </g>
                     </g>
                 </g>
