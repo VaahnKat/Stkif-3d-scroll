@@ -27,6 +27,7 @@
                     if (a.getAttribute("href") === "#" + entry.target.id) a.setAttribute("aria-current", "step");
                     else a.removeAttribute("aria-current");
                 });
+                story.setAttribute("data-chapter", entry.target.id);   // each chapter changes the scene (css)
             });
         }, { rootMargin: "-45% 0px -45% 0px" });
         Array.prototype.forEach.call(chapters, function (c) { current.observe(c); });
@@ -255,7 +256,7 @@
         var clear = Math.abs(d) >= TURN ? 1 : ease(0, 1, Math.abs(d) / TURN);
 
         // Walk while climbing; settle into a still stance on the start and the summit
-        var amount = ease(0, 0.02, tp) * (1 - ease(0.97, 1, tp)) * (0.35 + 0.65 * clear);
+        var amount = ease(0, 0.02, tp) * (1 - ease(0.97, 1, tp)) * clear;   // feet planted at each bend
         var cycle = at / (STRIDE * size);
         climber.setAttribute("transform", "translate(" + here.x.toFixed(1) + " " + here.y.toFixed(1) + ") scale(" + size.toFixed(3) + ")");
         if (turn) turn.setAttribute("transform", "scale(" + facing + " 1)");
@@ -284,6 +285,8 @@
         bubble.style.left = Math.round(box.left + box.width / 2 - stage.left) + "px";
         bubble.style.top = Math.round(box.top - stage.top - 8) + "px";
     }
+
+    var raysLayer = story.querySelector(".story-rays");
 
     // ---------- Smooth glide ----------
     // The page scrolls normally, but the scene eases towards the scroll position instead
@@ -325,9 +328,13 @@
         s.setProperty("--p", p.toFixed(4));
         s.setProperty("--night", (1 - ease(0.03, 0.22, p)).toFixed(3));
         s.setProperty("--sun", ease(0.05, 0.32, p).toFixed(3));
+        var rays = 0.85 * ease(0.05, 0.14, p) * (1 - ease(0.26, 0.42, p));
+        s.setProperty("--rays", rays.toFixed(3));
+        if (raysLayer) raysLayer.classList.toggle("is-off", rays < 0.01);
         s.setProperty("--dawn", (ease(0.02, 0.12, p) * (1 - ease(0.2, 0.42, p))).toFixed(3));
         s.setProperty("--glow", (0.7 * ease(0.05, 0.22, p) * (1 - 0.5 * ease(0.3, 0.6, p))).toFixed(3));
         s.setProperty("--tp", tp.toFixed(4));
+        if (audio) audio.windGain.gain.setTargetAtTime(0.16 + 0.22 * p, audio.ctx.currentTime, 0.5);   // windier near the top
         s.setProperty("--birds", birds.toFixed(4));
         s.setProperty("--birdsop", (ease(0, 0.1, birds) * (1 - ease(0.85, 1, birds))).toFixed(3));
         var tahrX = moveClimber(tp);
@@ -359,6 +366,88 @@
             mouse.ty = e.clientY / window.innerHeight * 2 - 1;
             if (!mouse.running) { mouse.running = true; requestAnimationFrame(followMouse); }
         }, { passive: true });
+    }
+
+    // ---------- Sound: wind and birdsong, made in the browser (off until you turn it on) ----------
+    var soundButton = story.querySelector(".sound-toggle");
+    var audio = null;
+    function startSound() {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        var ctx = new AC();
+        var master = ctx.createGain();
+        master.gain.value = 0;
+        master.connect(ctx.destination);
+
+        // Wind: soft noise through a filter that slowly opens and closes, like gusts
+        var noise = ctx.createBuffer(1, ctx.sampleRate * 3, ctx.sampleRate), data = noise.getChannelData(0);
+        for (var i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+        var src = ctx.createBufferSource();
+        src.buffer = noise;
+        src.loop = true;
+        var filter = ctx.createBiquadFilter();
+        filter.type = "lowpass";
+        filter.frequency.value = 420;
+        var lfo = ctx.createOscillator(), lfoDepth = ctx.createGain();
+        lfo.frequency.value = 0.08;
+        lfoDepth.gain.value = 260;
+        lfo.connect(lfoDepth).connect(filter.frequency);
+        var windGain = ctx.createGain();
+        windGain.gain.value = 0.22;
+        src.connect(filter).connect(windGain).connect(master);
+        src.start();
+        lfo.start();
+
+        // Birds: now and then a short call of two to four chirps, more of them once the sun is up
+        function chirp(at, pan) {
+            var o = ctx.createOscillator(), g = ctx.createGain(), p = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
+            var f = 2600 + Math.random() * 1400;
+            o.type = "sine";
+            o.frequency.setValueAtTime(f, at);
+            o.frequency.exponentialRampToValueAtTime(f * 1.45, at + 0.07);
+            g.gain.setValueAtTime(0.0001, at);
+            g.gain.exponentialRampToValueAtTime(0.05, at + 0.015);
+            g.gain.exponentialRampToValueAtTime(0.0001, at + 0.11);
+            if (p) { p.pan.value = pan; o.connect(g).connect(p).connect(master); } else { o.connect(g).connect(master); }
+            o.start(at);
+            o.stop(at + 0.13);
+        }
+        var timer = null;
+        function birdCall() {
+            var daylight = Math.min(1, shown * 3);
+            if (Math.random() < 0.25 + 0.75 * daylight) {
+                var n = 2 + Math.floor(Math.random() * 3), pan = Math.random() * 1.6 - 0.8;
+                for (var k = 0; k < n; k++) chirp(ctx.currentTime + k * (0.13 + Math.random() * 0.06), pan);
+            }
+            timer = setTimeout(birdCall, 3500 + Math.random() * 5500);
+        }
+        birdCall();
+
+        master.gain.setTargetAtTime(1, ctx.currentTime, 0.8);   // fade in
+        return {
+            ctx: ctx, master: master, windGain: windGain,
+            stop: function () {
+                clearTimeout(timer);
+                master.gain.setTargetAtTime(0, ctx.currentTime, 0.3);
+                setTimeout(function () { ctx.close(); }, 900);
+            }
+        };
+    }
+    if (soundButton) {
+        soundButton.hidden = false;
+        soundButton.addEventListener("click", function () {
+            var on = soundButton.getAttribute("aria-pressed") !== "true";
+            soundButton.setAttribute("aria-pressed", on ? "true" : "false");
+            if (on) { audio = startSound(); }
+            else if (audio) { audio.stop(); audio = null; }
+        });
+        // stop when the tab is hidden, so it never plays in the background
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden && audio) {
+                audio.stop(); audio = null;
+                soundButton.setAttribute("aria-pressed", "false");
+            }
+        });
     }
 
     placeSummit();

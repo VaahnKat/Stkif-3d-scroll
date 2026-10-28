@@ -366,5 +366,7 @@ window.STK_TRANSLATIONS.ta = {
     "A child and an adult playing carrom together":
         "ஒரு குழந்தையும் பெரியவரும் சேர்ந்து கேரம் விளையாடுகிறார்கள்",
     "A family on a forest walk at a club outing":
-        "சங்கச் சுற்றுலாவில் காட்டுப் பாதையில் நடக்கும் ஒரு குடும்பம்"
+        "சங்கச் சுற்றுலாவில் காட்டுப் பாதையில் நடக்கும் ஒரு குடும்பம்",
+    "Sound":
+        "ஒலி"
 };

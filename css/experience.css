@@ -10,6 +10,13 @@
    who prefer less motion: daylight, with the tahr standing on the summit.
    All colours come from the theme (css/themes/), so every theme works. */
 
+/* --settle glides from 0 to 1 when the tahr reaches the summit: the camera eases in */
+@property --settle {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+
 .experience-page main {
     margin-top: 0;
 }
@@ -187,15 +194,15 @@
 }
 
 .story-far {
-    transform: translate3d(calc(var(--mx) * -8px + var(--pan-x, 0px) * 0.3), calc(var(--p) * 20px + var(--my) * -4px + var(--pan-y, 0px) * 0.3), 0) scale(calc(1 + var(--p) * 0.1));
+    transform: translate3d(calc(var(--mx) * -8px + var(--pan-x, 0px) * 0.3), calc(var(--p) * 20px + var(--my) * -4px + var(--pan-y, 0px) * 0.3), 0) scale(calc(1 + var(--p) * 0.1 + var(--settle) * 0.015));
 }
 
 .story-mid {
-    transform: translate3d(calc(var(--mx) * -16px + var(--pan-x, 0px) * 0.6), calc(var(--p) * 4vh + var(--my) * -8px + var(--pan-y, 0px) * 0.6), 0) scale(calc(1 + var(--p) * 0.2));
+    transform: translate3d(calc(var(--mx) * -16px + var(--pan-x, 0px) * 0.6), calc(var(--p) * 4vh + var(--my) * -8px + var(--pan-y, 0px) * 0.6), 0) scale(calc(1 + var(--p) * 0.2 + var(--settle) * 0.03));
 }
 
 .story-near {
-    transform: translate3d(calc(var(--mx) * -26px + var(--pan-x, 0px)), calc(var(--my) * -12px + var(--pan-y, 0px)), 0) scale(calc(1 + var(--p) * 0.32));
+    transform: translate3d(calc(var(--mx) * -26px + var(--pan-x, 0px)), calc(var(--my) * -12px + var(--pan-y, 0px)), 0) scale(calc(1 + var(--p) * 0.32 + var(--settle) * 0.07));
 }
 
 .story-front {
@@ -379,6 +386,176 @@
     20% { opacity: 0.9; }
     60% { opacity: 0.5; }
     100% { transform: translate(var(--dx), -60px); opacity: 0; }
+}
+
+/* ---------- Chapter moments ----------
+   js/experience.js sets data-chapter on #story to the chapter you are reading,
+   and each chapter changes something in the world. */
+
+.story {
+    transition: --settle 3.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.story.summit-reached { --settle: 1; }
+
+/* Sunrise: rays fan out from the sun (--rays is set by the scroll) */
+.story-rays {
+    opacity: var(--rays, 0);
+    pointer-events: none;
+}
+
+/* switched off completely outside the sunrise, so it costs nothing */
+.story-rays.is-off { visibility: hidden; }
+
+.sun-rays {
+    position: absolute;
+    left: 60.417%;          /* the sun's place in the 1440 x 900 scene */
+    top: 31.667%;
+    width: 90%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    /* soft shafts of light, painted once into a small picture (cheap to turn) */
+    background: url("../images/story/sun-rays.webp") center / contain no-repeat;
+}
+
+.story-live .sun-rays {
+    animation: rays-turn 160s linear infinite;
+}
+
+@keyframes rays-turn {
+    to { rotate: 360deg; }
+}
+
+/* Sports: a gust of wind bends the pines and blows the pollen sideways */
+.story-front img {
+    transform-origin: 50% 100%;
+}
+
+.story-live[data-chapter="sport"] .story-front img {
+    animation: gust 3.6s ease-in-out infinite;
+}
+
+@keyframes gust {
+    0%, 100% { transform: skewX(0deg); }
+    35% { transform: skewX(-2.2deg); }
+    55% { transform: skewX(-0.8deg); }
+    70% { transform: skewX(-1.6deg); }
+}
+
+.story-live[data-chapter="sport"] .mote {
+    --dx: 180px !important;
+    animation-duration: 3.2s;
+}
+
+/* Youth: a kite swoops past, close to the camera */
+.kite-swoop {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: clamp(90px, 16vmin, 170px);
+    aspect-ratio: 104 / 150;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.story-live[data-chapter="youth"] .kite-swoop {
+    animation: kite-swoop 4.6s cubic-bezier(0.45, 0.05, 0.4, 1) 0.5s 1 both;
+}
+
+@keyframes kite-swoop {
+    0% { opacity: 0; transform: translate(-30vw, 46vh) rotate(-14deg) scale(0.6); }
+    12% { opacity: 1; }
+    50% { transform: translate(45vw, 22vh) rotate(4deg) scale(1.15); }
+    88% { opacity: 1; }
+    100% { opacity: 0; transform: translate(115vw, 30vh) rotate(12deg) scale(0.8); }
+}
+
+/* Family: mist rolls into the valley */
+.story-fog {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(60% 22% at 25% 78%, color-mix(in srgb, var(--t-footer-text) 70%, transparent), transparent 70%),
+        radial-gradient(55% 20% at 78% 70%, color-mix(in srgb, var(--t-footer-text) 60%, transparent), transparent 70%),
+        linear-gradient(0deg, color-mix(in srgb, var(--t-footer-text) 55%, transparent) 0%, color-mix(in srgb, var(--t-footer-text) 30%, transparent) 22%, transparent 45%);
+    opacity: 0;
+    transform: translateY(10vh);
+    transition: opacity 2.6s ease, transform 4s ease;
+}
+
+.story-live[data-chapter="family"] .story-fog {
+    opacity: calc(var(--t-cloud-opacity, 1) * 0.85);
+    transform: translateY(0);
+}
+
+/* Community to the summit: the light turns golden */
+.story-golden {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(70% 60% at 62% 32%, color-mix(in srgb, var(--t-sun) 40%, transparent), transparent 72%),
+        linear-gradient(0deg, color-mix(in srgb, var(--t-sun) 16%, transparent), transparent 60%);
+    opacity: 0;
+    transition: opacity 3s ease;
+}
+
+.story-live[data-chapter="community"] .story-golden,
+.story-live[data-chapter="summit"] .story-golden {
+    opacity: 1;
+}
+
+/* ---------- Sound ---------- */
+
+.sound-toggle {
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px 10px 12px;
+    border: 1px solid var(--t-line);
+    border-radius: 999px;
+    background: var(--t-header-bg);
+    color: var(--t-heading);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    box-shadow: var(--t-shadow);
+    cursor: pointer;
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.sound-toggle[hidden] { display: none; }
+
+.sound-toggle:focus-visible {
+    outline: 3px solid var(--t-accent);
+    outline-offset: 3px;
+}
+
+.sound-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.sound-icon .sound-waves,
+.sound-icon .sound-off {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
+.sound-toggle[aria-pressed="false"] .sound-waves,
+.sound-toggle[aria-pressed="true"] .sound-off { display: none; }
+
+.story-past .sound-toggle {
+    opacity: 0;
+    visibility: hidden;
 }
 
 /* ---------- Clouds ---------- */
@@ -604,8 +781,38 @@
         padding-top: 76px;
     }
 
+    /* near the top the tahr is high on the screen, so this card moves to the bottom */
+    #community.chapter {
+        align-items: flex-end;
+        padding-bottom: 84px;
+    }
+
+    /* compact cards on phones: a small photo beside the text, so the climb stays in view */
+    .chapter-card--photo {
+        display: grid;
+        grid-template-columns: 34% 1fr;
+        align-items: stretch;
+        max-width: 100%;
+    }
+
     .chapter-card--photo img {
-        height: clamp(130px, 20vh, 200px);
+        height: 100%;
+        min-height: 128px;
+    }
+
+    .chapter-card--photo .chapter-text {
+        padding: 14px 16px;
+        align-self: center;
+    }
+
+    .chapter-card--photo h2 {
+        font-size: 26px;
+        margin-bottom: 6px;
+    }
+
+    .chapter-card--photo p {
+        font-size: 14.5px;
+        line-height: 1.5;
     }
 }
 .chapter--right { justify-content: flex-end; }
@@ -906,6 +1113,7 @@
 
 @media (prefers-reduced-motion: reduce) {
     .dawn-cue::after,
+    .sun-rays,
     .mote,
     .kite,
     .bird-fly,

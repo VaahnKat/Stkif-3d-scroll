@@ -366,5 +366,7 @@ window.STK_TRANSLATIONS.sv = {
     "A child and an adult playing carrom together":
         "Ett barn och en vuxen spelar carrom tillsammans",
     "A family on a forest walk at a club outing":
-        "En familj på skogspromenad under en utflykt med föreningen"
+        "En familj på skogspromenad under en utflykt med föreningen",
+    "Sound":
+        "Ljud"
 };

@@ -12,13 +12,13 @@
     <meta property="og:title" content="The Climb | Stockholm Tamil Kultur &amp; IF">
     <meta property="og:description" content="Climb the mountain with the Nilgiri tahr and discover STK IF: culture, sport and community for every generation of the Tamil community in Stockholm.">
     <meta property="og:image" content="https://teamraat.github.io/STK-IF/images/og-image.jpg">
-    <link rel="stylesheet" href="css/shared-styles.css?v=20261028-4">
+    <link rel="stylesheet" href="css/shared-styles.css?v=20261028-5">
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="stylesheet" href="css/modern.css?v=20261028-4">
-    <link rel="stylesheet" href="css/theme.css?v=20261028-4" id="theme-css">
-    <link rel="stylesheet" href="css/mascots.css?v=20261028-4">
-    <link rel="stylesheet" href="css/refresh.css?v=20261028-4">
-    <link rel="stylesheet" href="css/experience.css?v=20261028-4">
+    <link rel="stylesheet" href="css/modern.css?v=20261028-5">
+    <link rel="stylesheet" href="css/theme.css?v=20261028-5" id="theme-css">
+    <link rel="stylesheet" href="css/mascots.css?v=20261028-5">
+    <link rel="stylesheet" href="css/refresh.css?v=20261028-5">
+    <link rel="stylesheet" href="css/experience.css?v=20261028-5">
     <link rel="preload" as="image" href="images/hero-logo.webp">
     <link rel="preload" as="font" type="font/woff2" href="fonts/Montserrat-Variable-latin.woff2" crossorigin>
     <script>
@@ -98,6 +98,11 @@
 
             <!-- Clouds and kites are page elements, not drawings, so the graphics card moves them
                  without redrawing the sky. .story-art matches the 1440 x 900 scene on any screen. -->
+            <!-- Rays of the rising sun (strongest at sunrise) -->
+            <div class="story-layer story-sun story-rays"><div class="story-art">
+                <div class="sun-rays"></div>
+            </div></div>
+
             <div class="story-layer story-clouds"><div class="story-art">
                 <img class="cloud" data-src="images/story/cloud-puff-1.webp" alt="" decoding="async" style="left:9.722%;top:7.778%;width:18.889%;height:23.000%">
                 <img class="cloud cloud--slow" data-src="images/story/cloud-bank-1.webp" alt="" decoding="async" style="left:36.111%;top:16.667%;width:38.889%;height:15.778%">
@@ -204,6 +209,9 @@
                 </g>
             </svg>
 
+            <!-- Mist that rolls in low over the ridge in the Family chapter -->
+            <div class="story-fog"></div>
+
             <div class="story-layer story-front"><div class="story-art">
                 <!-- Pines and tall grass right in front of the camera; they sweep away as you climb -->
                 <img data-src="images/story/pines-front.webp" alt="" decoding="async" style="left:-7.5%;top:38.667%;width:115%;height:61.333%">
@@ -212,9 +220,20 @@
             <!-- Dust and pollen drifting in the sunlight, close to the camera (filled in by js/experience.js) -->
             <div class="story-motes"></div>
 
+            <!-- A kite swoops past close to the camera in the Youth chapter -->
+            <div class="kite-swoop"><div class="kite"></div></div>
+
+            <!-- Warm golden-hour light for the last stretch to the summit -->
+            <div class="story-golden"></div>
+
             <div class="story-night-tint"></div>
             <p class="summit-bubble">Vanakkam! Welcome to STK IF</p>
         </div>
+
+        <button class="sound-toggle" type="button" aria-pressed="false" hidden>
+            <svg class="sound-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="sound-waves" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/><path class="sound-off" d="M16 9l5 6M21 9l-5 6"/></svg>
+            <span>Sound</span>
+        </button>
 
         <nav class="story-nav" aria-label="Story chapters">
             <ol>
@@ -360,10 +379,10 @@
 
     </footer>
 
-    <script src="lang/languages.js?v=20261028-4"></script>
-    <script src="js/i18n.js?v=20261028-4"></script>
-    <script src="mascots/mascot-list.js?v=20261028-4"></script>
-    <script src="js/site.js?v=20261028-4"></script>
-    <script src="js/experience.js?v=20261028-4"></script>
+    <script src="lang/languages.js?v=20261028-5"></script>
+    <script src="js/i18n.js?v=20261028-5"></script>
+    <script src="mascots/mascot-list.js?v=20261028-5"></script>
+    <script src="js/site.js?v=20261028-5"></script>
+    <script src="js/experience.js?v=20261028-5"></script>
 </body>
 </html>
