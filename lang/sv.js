@@ -406,5 +406,17 @@ window.STK_TRANSLATIONS.sv = {
     "Flag of India":
         "Indiens flagga",
     "Flag of Sweden":
-        "Sveriges flagga"
+        "Sveriges flagga",
+
+    // Our home, Botkyrka
+    "Our home is <strong>Botkyrka kommun</strong>, just south of Stockholm. Many of our families live here, and Botkyrka is where we meet, play and celebrate together, for example at Fittjaskolan in Fittja.":
+        "Vårt hem är <strong>Botkyrka kommun</strong>, strax söder om Stockholm. Många av våra familjer bor här, och det är i Botkyrka vi träffas, spelar och firar tillsammans, till exempel på Fittjaskolan i Fittja.",
+    "Thank you, Botkyrka":
+        "Tack, Botkyrka",
+    "A municipality where many cultures feel at home.":
+        "En kommun där många kulturer känner sig hemma.",
+    "Botkyrka is known across Sweden as a place where many cultures meet and are made welcome. We are deeply grateful to Botkyrka kommun for its support of local associations and cultural life. That support gives families like ours the chance to share Tamil and Indian culture with our neighbours, and helps every generation feel at home in Sweden.":
+        "Botkyrka är känt i hela Sverige som en plats där många kulturer möts och välkomnas. Vi är djupt tacksamma mot Botkyrka kommun för dess stöd till det lokala föreningslivet och kulturlivet. Det stödet ger familjer som våra möjlighet att dela tamilsk och indisk kultur med våra grannar, och hjälper alla generationer att känna sig hemma i Sverige.",
+    "Botkyrka, Stockholm, Sweden":
+        "Botkyrka, Stockholm, Sverige"
 };

@@ -634,3 +634,29 @@ section#main-container {
     border: 1.5px solid var(--t-accent-dark);
     background: repeating-conic-gradient(var(--t-accent-dark) 0deg 2deg, transparent 2deg 15deg);
 }
+
+/* ---------- Thank you, Botkyrka ---------- */
+.botkyrka-banner {
+    margin-top: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+    border-left: 4px solid var(--t-silk);
+    background:
+        radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--t-gold) 18%, transparent), transparent 55%),
+        var(--t-soft-2);
+}
+
+#about-page .botkyrka-banner .motto-label { color: var(--t-silk); }
+
+.botkyrka-quote {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--t-heading);
+}
+
+#about-page .botkyrka-sub {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--t-text);
+}

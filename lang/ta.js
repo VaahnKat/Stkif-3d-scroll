@@ -406,5 +406,17 @@ window.STK_TRANSLATIONS.ta = {
     "Flag of India":
         "இந்தியக் கொடி",
     "Flag of Sweden":
-        "ஸ்வீடன் கொடி"
+        "ஸ்வீடன் கொடி",
+
+    // Our home, Botkyrka
+    "Our home is <strong>Botkyrka kommun</strong>, just south of Stockholm. Many of our families live here, and Botkyrka is where we meet, play and celebrate together, for example at Fittjaskolan in Fittja.":
+        "எங்கள் இல்லம் ஸ்டாக்ஹோமுக்குத் தெற்கே உள்ள <strong>போட்கிர்கா நகராட்சி</strong>. எங்கள் குடும்பங்களில் பலர் இங்கே வசிக்கின்றனர்; ஃபிட்யாவில் உள்ள ஃபிட்யா பள்ளி போன்ற இடங்களில் நாங்கள் ஒன்றுகூடி, விளையாடி, கொண்டாடுகிறோம்.",
+    "Thank you, Botkyrka":
+        "நன்றி, போட்கிர்கா",
+    "A municipality where many cultures feel at home.":
+        "பல பண்பாடுகளும் தம் வீடாக உணரும் ஒரு நகராட்சி.",
+    "Botkyrka is known across Sweden as a place where many cultures meet and are made welcome. We are deeply grateful to Botkyrka kommun for its support of local associations and cultural life. That support gives families like ours the chance to share Tamil and Indian culture with our neighbours, and helps every generation feel at home in Sweden.":
+        "பல பண்பாடுகள் சந்தித்து வரவேற்கப்படும் இடமாக போட்கிர்கா ஸ்வீடன் முழுவதும் அறியப்படுகிறது. உள்ளூர் சங்கங்களுக்கும் பண்பாட்டு வாழ்விற்கும் போட்கிர்கா நகராட்சி அளிக்கும் ஆதரவுக்கு நாங்கள் மனமார்ந்த நன்றி கூறுகிறோம். அந்த ஆதரவு, எங்களைப் போன்ற குடும்பங்கள் தமிழ் மற்றும் இந்தியப் பண்பாட்டை அண்டை வீட்டாருடன் பகிர வாய்ப்பளிக்கிறது; ஒவ்வொரு தலைமுறையும் ஸ்வீடனில் தம் வீட்டில் இருப்பதுபோல் உணர உதவுகிறது.",
+    "Botkyrka, Stockholm, Sweden":
+        "போட்கிர்கா, ஸ்டாக்ஹோம், சுவீடன்"
 };
