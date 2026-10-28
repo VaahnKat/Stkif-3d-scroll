@@ -201,13 +201,32 @@
             if (before * after < 0) bends.push(along);
         }
     })();
-    var TURN = 11;   // how far before and after a bend the turn takes (in path units)
+    var TURN = 16;   // how far before and after a bend the turn takes (in path units)
 
-    // 0 right at a bend, 1 once clear of it
-    function clearOfBend(at) {
-        var d = Infinity;
-        for (var i = 0; i < bends.length; i++) d = Math.min(d, Math.abs(at - bends[i]));
-        return d >= TURN ? 1 : ease(0, 1, d / TURN);
+    // Signed distance to the nearest bend: negative before it, positive after it
+    function nearestBend(at) {
+        var best = Infinity;
+        for (var i = 0; i < bends.length; i++) if (Math.abs(at - bends[i]) < Math.abs(best)) best = at - bends[i];
+        return best;
+    }
+
+    // The turn runs through five poses: walking side-on, three-quarter, facing you,
+    // three-quarter the other way, walking side-on the new way. Returns how much of each
+    // shows. Like hand-drawn animation it cuts from pose to pose instead of dissolving,
+    // which would show two goats at once.
+    var turnPoses = {};
+    Array.prototype.forEach.call(climber ? climber.querySelectorAll(".turn-pose") : [], function (img) {
+        turnPoses[img.getAttribute("data-pose")] = img;
+    });
+    var turning = climber && climber.querySelector(".tahr-turning");
+    var shadow = climber && climber.querySelector(".tahr-shadow");
+    function turnWeights(u, from) {
+        var steps = ["side", from > 0 ? "right" : "left", "front", from > 0 ? "left" : "right", "side"];
+        var f = clamp(u) * 4, i = Math.min(3, Math.floor(f)), t = ease(0.46, 0.54, f - i);   // cut, almost no blend
+        var w = { side: 0, right: 0, left: 0, front: 0 };
+        w[steps[i]] += 1 - t;
+        w[steps[i + 1]] += t;
+        return w;
     }
 
     var facing = 1;
@@ -228,17 +247,23 @@
         // Further up the ridge is further from the camera, so the tahr looks smaller
         var size = 0.72 + 0.43 * clamp((here.y - SUMMIT.y) / (760 - SUMMIT.y));
 
-        // At a bend the tahr turns its body towards the camera (it looks narrower, as seen
-        // end-on) and takes short steps, then faces the new way. Tied to the scroll, so it
-        // turns back if you scroll back.
-        var clear = clearOfBend(at);
-        var turnWidth = 0.58 + 0.42 * clear;
+        // At a bend the tahr turns round through the camera-facing poses (tied to the scroll,
+        // so it turns back if you scroll back) and takes short steps while it does.
+        var d = nearestBend(at);
+        var w = { side: 1, right: 0, left: 0, front: 0 };
+        if (Math.abs(d) < TURN) w = turnWeights((d + TURN) / (2 * TURN), d < 0 ? facing : -facing);
+        var clear = Math.abs(d) >= TURN ? 1 : ease(0, 1, Math.abs(d) / TURN);
 
         // Walk while climbing; settle into a still stance on the start and the summit
         var amount = ease(0, 0.02, tp) * (1 - ease(0.97, 1, tp)) * (0.35 + 0.65 * clear);
         var cycle = at / (STRIDE * size);
         climber.setAttribute("transform", "translate(" + here.x.toFixed(1) + " " + here.y.toFixed(1) + ") scale(" + size.toFixed(3) + ")");
-        if (turn) turn.setAttribute("transform", "scale(" + (facing * turnWidth).toFixed(3) + " 1)");
+        if (turn) turn.setAttribute("transform", "scale(" + facing + " 1)");
+        if (turning) turning.setAttribute("transform", "scale(" + facing + " 1)");   // undo the flip: these poses face their own way
+        if (lean) lean.setAttribute("opacity", w.side.toFixed(2));
+        Object.keys(turnPoses).forEach(function (k) { turnPoses[k].setAttribute("opacity", w[k].toFixed(2)); });
+        // seen from the front the tahr is narrow, and so is its shadow
+        if (shadow) shadow.setAttribute("transform", "scale(" + (1 - 0.6 * w.front - 0.25 * (w.left + w.right)).toFixed(2) + " 1)");
         if (lean) lean.setAttribute("transform", "rotate(" + (leanDeg * (1 - ease(0.97, 1, tp))).toFixed(1) + ")");
         // the body rises and dips a little with each step (in the parts' own units)
         if (body) body.setAttribute("transform", "translate(0 " + (-14 * Math.cos(cycle * 4 * Math.PI) * amount).toFixed(1) + ")");
