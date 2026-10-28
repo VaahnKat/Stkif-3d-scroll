@@ -235,10 +235,6 @@
 }
 
 /* Turning round at a bend: a quick squash through side-on, like a real turn */
-.tahr-turn {
-    transition: transform 0.35s ease-in-out;
-}
-
 /* Small signs of life, even when the scroll stops: the tail flicks */
 .story-live .tahr-tail {
     transform-box: fill-box;
@@ -416,20 +412,35 @@
 
 /* ---------- Arriving at the summit: the flag starts to wave ---------- */
 
-.summit-flag path:last-child {
+.flag-pole { stroke: var(--t-heading); }
+.flag-finial { fill: var(--t-gold); }
+.flag-cloth-bg { fill: var(--t-footer-2); }
+
+.flag-cloth-edge {
+    fill: none;
+    stroke: var(--t-gold);
+    stroke-width: 1.4;
+    stroke-linejoin: round;
+}
+
+/* The pennant ripples in the summit wind, hinged at the pole */
+.flag-cloth {
     transform-box: fill-box;
     transform-origin: 0 50%;
 }
 
-.summit-reached .summit-flag path:last-child {
-    animation: flag-wave 1.4s ease-in-out infinite;
+.summit-reached .flag-cloth {
+    animation: flag-wave 2.2s ease-in-out infinite;
 }
 
 @keyframes flag-wave {
-    50% { transform: scaleX(0.8) skewY(5deg); }
+    0%, 100% { transform: skewY(0deg) scaleX(1); }
+    30% { transform: skewY(-4deg) scaleX(0.94); }
+    60% { transform: skewY(3deg) scaleX(0.97); }
 }
 
-/* "Vanakkam!" bubble; js/experience.js places it above the tahr */
+/* "Vanakkam!" bubble; js/experience.js places it above the tahr. It leans to the
+   left so it stays clear of the flag on the right. */
 .summit-bubble {
     position: absolute;
     left: 0;
@@ -444,7 +455,7 @@
     white-space: nowrap;
     box-shadow: var(--t-shadow-hover);
     opacity: 0;
-    transform: translate(-50%, calc(-100% + 10px)) scale(0.85);
+    transform: translate(-74%, calc(-100% + 10px)) scale(0.85);
     transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.3, 1.5, 0.5, 1);
     pointer-events: none;
 }
@@ -452,7 +463,7 @@
 .summit-bubble::after {
     content: "";
     position: absolute;
-    left: 50%;
+    left: 74%;
     bottom: -6px;
     width: 12px;
     height: 12px;
@@ -462,7 +473,7 @@
 
 .summit-reached .summit-bubble {
     opacity: 1;
-    transform: translate(-50%, -100%) scale(1);
+    transform: translate(-74%, -100%) scale(1);
 }
 
 /* ---------- Chapter list (dots on the right) ---------- */

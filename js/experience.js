@@ -186,6 +186,30 @@
         return { top: top * amount, low: low * amount };
     }
 
+    // ---------- Turning at the bends ----------
+    // Find the hairpin bends (where the path swaps from going left to going right, or back),
+    // measured as distance along the path.
+    var bends = [];
+    (function () {
+        var nums = (trail ? trail.getAttribute("d") : "").match(/-?[\d.]+/g) || [];
+        var pts = [];
+        for (var i = 0; i + 1 < nums.length; i += 2) pts.push([+nums[i], +nums[i + 1]]);
+        var along = 0;
+        for (var j = 1; j < pts.length - 1; j++) {
+            along += Math.hypot(pts[j][0] - pts[j - 1][0], pts[j][1] - pts[j - 1][1]);
+            var before = pts[j][0] - pts[j - 1][0], after = pts[j + 1][0] - pts[j][0];
+            if (before * after < 0) bends.push(along);
+        }
+    })();
+    var TURN = 11;   // how far before and after a bend the turn takes (in path units)
+
+    // 0 right at a bend, 1 once clear of it
+    function clearOfBend(at) {
+        var d = Infinity;
+        for (var i = 0; i < bends.length; i++) d = Math.min(d, Math.abs(at - bends[i]));
+        return d >= TURN ? 1 : ease(0, 1, d / TURN);
+    }
+
     var facing = 1;
     function moveClimber(tp) {
         if (!trailLength || !climber) return;
@@ -204,11 +228,17 @@
         // Further up the ridge is further from the camera, so the tahr looks smaller
         var size = 0.72 + 0.43 * clamp((here.y - SUMMIT.y) / (760 - SUMMIT.y));
 
+        // At a bend the tahr turns its body towards the camera (it looks narrower, as seen
+        // end-on) and takes short steps, then faces the new way. Tied to the scroll, so it
+        // turns back if you scroll back.
+        var clear = clearOfBend(at);
+        var turnWidth = 0.58 + 0.42 * clear;
+
         // Walk while climbing; settle into a still stance on the start and the summit
-        var amount = ease(0, 0.02, tp) * (1 - ease(0.97, 1, tp));
+        var amount = ease(0, 0.02, tp) * (1 - ease(0.97, 1, tp)) * (0.35 + 0.65 * clear);
         var cycle = at / (STRIDE * size);
         climber.setAttribute("transform", "translate(" + here.x.toFixed(1) + " " + here.y.toFixed(1) + ") scale(" + size.toFixed(3) + ")");
-        if (turn) turn.style.transform = "scaleX(" + facing + ")";
+        if (turn) turn.setAttribute("transform", "scale(" + (facing * turnWidth).toFixed(3) + " 1)");
         if (lean) lean.setAttribute("transform", "rotate(" + (leanDeg * (1 - ease(0.97, 1, tp))).toFixed(1) + ")");
         // the body rises and dips a little with each step (in the parts' own units)
         if (body) body.setAttribute("transform", "translate(0 " + (-14 * Math.cos(cycle * 4 * Math.PI) * amount).toFixed(1) + ")");

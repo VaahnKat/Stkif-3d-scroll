@@ -12,13 +12,13 @@
     <meta property="og:title" content="The Climb | Stockholm Tamil Kultur &amp; IF">
     <meta property="og:description" content="Climb the mountain with the Nilgiri tahr and discover STK IF: culture, sport and community for every generation of the Tamil community in Stockholm.">
     <meta property="og:image" content="https://teamraat.github.io/STK-IF/images/og-image.jpg">
-    <link rel="stylesheet" href="css/shared-styles.css?v=20261028-2">
+    <link rel="stylesheet" href="css/shared-styles.css?v=20261028-3">
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="stylesheet" href="css/modern.css?v=20261028-2">
-    <link rel="stylesheet" href="css/theme.css?v=20261028-2" id="theme-css">
-    <link rel="stylesheet" href="css/mascots.css?v=20261028-2">
-    <link rel="stylesheet" href="css/refresh.css?v=20261028-2">
-    <link rel="stylesheet" href="css/experience.css?v=20261028-2">
+    <link rel="stylesheet" href="css/modern.css?v=20261028-3">
+    <link rel="stylesheet" href="css/theme.css?v=20261028-3" id="theme-css">
+    <link rel="stylesheet" href="css/mascots.css?v=20261028-3">
+    <link rel="stylesheet" href="css/refresh.css?v=20261028-3">
+    <link rel="stylesheet" href="css/experience.css?v=20261028-3">
     <link rel="preload" as="image" href="images/hero-logo.webp">
     <link rel="preload" as="font" type="font/woff2" href="fonts/Montserrat-Variable-latin.woff2" crossorigin>
     <script>
@@ -160,9 +160,15 @@
                 </defs>
                 <!-- The route of the goat path painted on the near ridge (invisible; the tahr follows it) -->
                 <path class="trail" id="story-trail" d="M88.9 760.3 L154.5 716.6 L234.8 696.1 L344.2 681.6 L446.3 665.5 L541.1 637.8 L475.4 615.9 L424.4 607.2 L475.4 598.4 L592.1 570.7 L723.4 540.1 L665.0 519.7 L570.2 501.4 L628.6 486.8 L730.7 465.0 L810.9 428.5 L759.8 410.3 L767.1 403.0"/>
+                <!-- The club flag on the summit: a swallowtail pennant carrying the STK IF crest -->
                 <g class="summit-flag">
-                    <path style="stroke: var(--t-heading)" stroke-width="3" stroke-linecap="round" d="M826 401 V341"/>
-                    <path style="fill: var(--t-gold)" d="M827 341 L860 349 L827 359 Z"/>
+                    <path class="flag-pole" stroke-width="2.6" stroke-linecap="round" d="M826 401 V326"/>
+                    <circle class="flag-finial" cx="826" cy="325" r="2.4"/>
+                    <g class="flag-cloth">
+                        <path class="flag-cloth-bg" d="M827.5 328 H874 L866 345 L874 362 H827.5 Z"/>
+                        <path class="flag-cloth-edge" d="M827.5 328 H874 L866 345 L874 362 H827.5 Z"/>
+                        <image href="images/logo.webp" x="833" y="333" width="25" height="25"/>
+                    </g>
                 </g>
                 <!-- The Nilgiri tahr. js/experience.js walks it up the trail: it turns at each bend,
                      leans into the slope and moves its legs in a real four-beat walk. -->
@@ -347,10 +353,10 @@
 
     </footer>
 
-    <script src="lang/languages.js?v=20261028-2"></script>
-    <script src="js/i18n.js?v=20261028-2"></script>
-    <script src="mascots/mascot-list.js?v=20261028-2"></script>
-    <script src="js/site.js?v=20261028-2"></script>
-    <script src="js/experience.js?v=20261028-2"></script>
+    <script src="lang/languages.js?v=20261028-3"></script>
+    <script src="js/i18n.js?v=20261028-3"></script>
+    <script src="mascots/mascot-list.js?v=20261028-3"></script>
+    <script src="js/site.js?v=20261028-3"></script>
+    <script src="js/experience.js?v=20261028-3"></script>
 </body>
 </html>
