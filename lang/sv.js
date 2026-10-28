@@ -362,5 +362,9 @@ window.STK_TRANSLATIONS.sv = {
     "A young runner getting ready for a race":
         "En ung löpare gör sig redo för ett lopp",
     "Club families together on the lawn at a summer get-together":
-        "Föreningens familjer tillsammans på gräsmattan vid en sommarträff"
+        "Föreningens familjer tillsammans på gräsmattan vid en sommarträff",
+    "A child and an adult playing carrom together":
+        "Ett barn och en vuxen spelar carrom tillsammans",
+    "A family on a forest walk at a club outing":
+        "En familj på skogspromenad under en utflykt med föreningen"
 };

@@ -102,7 +102,13 @@
 }
 
 .story-far {
-    transform: translate3d(calc(var(--mx) * -8px), calc(var(--p) * 60px + var(--my) * -4px), 0) scale(calc(1 + var(--p) * 0.5));
+    --far-shift: 60px;
+    transform: translate3d(calc(var(--mx) * -8px), calc(var(--p) * var(--far-shift) + var(--my) * -4px), 0) scale(calc(1 + var(--p) * 0.5));
+}
+
+/* On narrow screens the summit card is tall, so the summit rises above it instead */
+@media (max-width: 700px) {
+    .story-far { --far-shift: -15vh; }
 }
 
 .story-mid {
@@ -155,8 +161,161 @@
     transform: scaleY(clamp(0, (var(--tp) - 0.95) * 20, 1));
 }
 
-.climber image {
-    filter: drop-shadow(0 0 6px var(--t-sun));
+/* ---------- The Nilgiri tahr ---------- */
+
+/* A faint rim of sunlight keeps the tahr visible against dark mountains */
+.climber {
+    filter: drop-shadow(0 0 1.5px color-mix(in srgb, var(--t-sun) 60%, transparent));
+}
+
+/* Soft shadow where the hooves meet the ground */
+.tahr-shadow {
+    fill: var(--t-footer-2);
+    opacity: 0.22;
+}
+
+/* Turning round at a bend: a quick squash through side-on, like a real turn */
+.tahr-turn {
+    transition: transform 0.35s ease-in-out;
+}
+
+/* Small signs of life, even when the scroll stops: the tail flicks and an ear twitches */
+.story-live .tahr-tail {
+    transform-box: fill-box;
+    transform-origin: 100% 0;
+    animation: tail-flick 3.4s ease-in-out infinite;
+}
+
+@keyframes tail-flick {
+    0%, 80%, 100% { transform: none; }
+    85% { transform: rotate(-24deg); }
+    90% { transform: rotate(6deg); }
+    94% { transform: rotate(-14deg); }
+}
+
+.story-live .tahr-ear {
+    transform-box: fill-box;
+    transform-origin: 100% 50%;
+    animation: ear-twitch 5.2s ease-in-out infinite;
+}
+
+@keyframes ear-twitch {
+    0%, 88%, 100% { transform: none; }
+    91% { transform: rotate(18deg); }
+    95% { transform: rotate(-4deg); }
+}
+
+/* At the summit the tahr lifts its head, looks out over the valley, then back */
+.tahr-head {
+    transform-box: fill-box;
+    transform-origin: 30% 92%;
+    transition: transform 0.8s ease;
+}
+
+.summit-reached .tahr-head {
+    animation: tahr-look 6s ease-in-out 0.4s infinite;
+}
+
+@keyframes tahr-look {
+    0%, 100% { transform: rotate(0); }
+    18%, 46% { transform: rotate(-9deg); }
+    60%, 82% { transform: rotate(5deg); }
+}
+
+/* ---------- Birds at sunrise (only while the scene moves) ---------- */
+
+.story-birds {
+    opacity: 0;
+    transform: translate3d(calc((var(--birds, 0) - 0.5) * 140vw), calc(var(--birds, 0) * -8vh), 0);
+}
+
+.story-live .story-birds { opacity: var(--birdsop, 0); }
+
+.bird path { fill: var(--t-muted); }
+.bird .wing-far { opacity: 0.65; }
+
+/* A few strong wingbeats, then a long glide, like real birds */
+.bird .wing {
+    transform-box: fill-box;
+    transform-origin: 80% 100%;
+    animation: wingbeat 2.4s ease-in-out infinite;
+}
+
+.bird-fly {
+    animation: bird-drift 2.4s ease-in-out infinite;
+}
+
+.bird:nth-child(2) .wing,
+.bird:nth-child(2) .bird-fly { animation-duration: 2.1s; animation-delay: -0.7s; }
+.bird:nth-child(3) .wing,
+.bird:nth-child(3) .bird-fly { animation-duration: 2.7s; animation-delay: -1.3s; }
+.bird:nth-child(4) .wing,
+.bird:nth-child(4) .bird-fly { animation-duration: 2.3s; animation-delay: -0.3s; }
+
+@keyframes wingbeat {
+    0% { transform: scaleY(1); }
+    10% { transform: scaleY(-0.75); }
+    20% { transform: scaleY(1); }
+    30% { transform: scaleY(-0.75); }
+    40% { transform: scaleY(1); }
+    52%, 100% { transform: scaleY(0.55) rotate(4deg); }
+}
+
+@keyframes bird-drift {
+    0%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    75% { transform: translateY(3px); }
+}
+
+/* ---------- Arriving at the summit: the flag starts to wave ---------- */
+
+.summit-flag path:last-child {
+    transform-box: fill-box;
+    transform-origin: 0 50%;
+}
+
+.summit-reached .summit-flag path:last-child {
+    animation: flag-wave 1.4s ease-in-out infinite;
+}
+
+@keyframes flag-wave {
+    50% { transform: scaleX(0.8) skewY(5deg); }
+}
+
+/* "Vanakkam!" bubble; js/experience.js places it above the tahr */
+.summit-bubble {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--t-card);
+    color: var(--t-heading);
+    font-size: clamp(13px, 1.4vw, 15px);
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: var(--t-shadow-hover);
+    opacity: 0;
+    transform: translate(-50%, calc(-100% + 10px)) scale(0.85);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.3, 1.5, 0.5, 1);
+    pointer-events: none;
+}
+
+.summit-bubble::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 12px;
+    height: 12px;
+    background: inherit;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.summit-reached .summit-bubble {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1);
 }
 
 /* ---------- Chapter list (dots on the right) ---------- */
@@ -458,6 +617,66 @@
     margin-top: 24px;
 }
 
+/* Next event, under the buttons */
+.experience-page .summit-event {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 18px auto 0;
+    padding: 8px 18px 8px 8px;
+    border-radius: var(--stk-radius);
+    border: 1px solid var(--t-line);
+    background: var(--t-soft-2);
+    color: var(--t-text);
+    text-align: left;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.experience-page .summit-event:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--t-shadow);
+}
+
+.experience-page .summit-event:focus-visible {
+    outline: 3px solid var(--t-accent);
+    outline-offset: 3px;
+}
+
+.summit-event img {
+    width: 42px;
+    height: 58px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.summit-event-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+}
+
+.summit-event-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--t-accent-dark);
+}
+
+.summit-event-title {
+    font-weight: 800;
+    color: var(--t-heading);
+}
+
+.summit-event-date {
+    font-size: 0.85rem;
+    color: var(--t-muted);
+}
+
 .experience-page .button {
     display: inline-flex;
     align-items: center;
@@ -511,14 +730,16 @@
 /* The opening title drifts up and fades as the climb begins */
 .story-live .dawn-content {
     transition: none;
-    opacity: clamp(0, 1 - var(--p) * 7, 1);
-    transform: translateY(calc(var(--p) * -40vh)) scale(calc(1 - var(--p) * 0.6));
+    opacity: clamp(0, 1 - var(--p) * 9, 1);
+    transform: translateY(calc(var(--p) * -50vh)) scale(calc(1 - var(--p) * 0.8));
 }
 
 /* ---------- Less motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-    .dawn-cue::after { animation: none; }
+    .dawn-cue::after,
+    .bird .wing,
+    .bird-fly { animation: none; }
     .story-nav span,
     .story-nav a::before { transition: none; }
 }

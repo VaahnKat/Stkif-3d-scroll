@@ -77,7 +77,14 @@
                 <circle cx="870" cy="285" r="74" style="fill: var(--t-sun)"/>
             </svg>
 
-            <!-- Far range with the summit, the trail and the climbing tahr -->
+<svg class="story-layer story-birds" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+                <g class="bird" transform="translate(700 210) scale(1.6)"><g class="bird-fly"><path class="wing wing-far" d="M2 -1 C1 -9 -4 -15 -11 -18 C-5 -11 -1 -6 6 -1 Z"/><path d="M-10 0 C-6 -2.6 5 -2.8 9 -1 L13 -0.2 L9 0.9 C4 2.4 -5 2.2 -10 0.4 L-16 -2.6 L-15 1.8 Z"/><path class="wing wing-near" d="M-1 -0.5 C-3 -10 -9 -17 -18 -20 C-10 -12 -5 -6 4 -0.5 Z"/></g></g>
+                <g class="bird" transform="translate(744 186) scale(1.3)"><g class="bird-fly"><path class="wing wing-far" d="M2 -1 C1 -9 -4 -15 -11 -18 C-5 -11 -1 -6 6 -1 Z"/><path d="M-10 0 C-6 -2.6 5 -2.8 9 -1 L13 -0.2 L9 0.9 C4 2.4 -5 2.2 -10 0.4 L-16 -2.6 L-15 1.8 Z"/><path class="wing wing-near" d="M-1 -0.5 C-3 -10 -9 -17 -18 -20 C-10 -12 -5 -6 4 -0.5 Z"/></g></g>
+                <g class="bird" transform="translate(660 176) scale(1.15)"><g class="bird-fly"><path class="wing wing-far" d="M2 -1 C1 -9 -4 -15 -11 -18 C-5 -11 -1 -6 6 -1 Z"/><path d="M-10 0 C-6 -2.6 5 -2.8 9 -1 L13 -0.2 L9 0.9 C4 2.4 -5 2.2 -10 0.4 L-16 -2.6 L-15 1.8 Z"/><path class="wing wing-near" d="M-1 -0.5 C-3 -10 -9 -17 -18 -20 C-10 -12 -5 -6 4 -0.5 Z"/></g></g>
+                <g class="bird" transform="translate(784 228) scale(1)"><g class="bird-fly"><path class="wing wing-far" d="M2 -1 C1 -9 -4 -15 -11 -18 C-5 -11 -1 -6 6 -1 Z"/><path d="M-10 0 C-6 -2.6 5 -2.8 9 -1 L13 -0.2 L9 0.9 C4 2.4 -5 2.2 -10 0.4 L-16 -2.6 L-15 1.8 Z"/><path class="wing wing-near" d="M-1 -0.5 C-3 -10 -9 -17 -18 -20 C-10 -12 -5 -6 4 -0.5 Z"/></g></g>
+            </svg>
+
+                        <!-- Far range with the summit, the trail and the climbing tahr -->
             <svg class="story-layer story-far" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
                 <path style="fill: var(--t-mtn-1)" d="M0 640 L140 560 L230 590 L330 470 L420 540 L520 470 L720 360 L800 420 L880 400 L1010 500 L1150 450 L1260 540 L1360 500 L1440 560 V900 H0 Z"/>
                 <path style="fill: var(--t-footer-text)" opacity="0.9" d="M720 360 L760 390 L745 388 L732 398 L718 388 L704 398 L690 386 L682 381 Z"/>
@@ -88,8 +95,72 @@
                     <path style="stroke: var(--t-heading)" stroke-width="3" stroke-linecap="round" d="M776 402 V336"/>
                     <path style="fill: var(--t-gold)" d="M777 336 L810 344 L777 354 Z"/>
                 </g>
+                <!-- The Nilgiri tahr. js/experience.js walks it up the trail: it turns at each bend,
+                     leans into the slope and moves its legs in a real four-beat walk. -->
                 <g class="climber" transform="translate(720 362)">
-                    <image href="mascots/tahr/tahr-leap.svg" x="-36" y="-60" width="72" height="63"/>
+                    <g class="tahr-turn">
+                        <ellipse class="tahr-shadow" cx="2" cy="0.5" rx="36" ry="3.2"/>
+                        <g class="tahr-lean">
+                    <g transform="scale(0.78)">
+                        <g class="tahr">
+                          <defs>
+                            <linearGradient id="tahr-coat" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0" stop-color="#7a5238"/>
+                              <stop offset="0.55" stop-color="#55382a"/>
+                              <stop offset="1" stop-color="#3b261b"/>
+                            </linearGradient>
+                            <linearGradient id="tahr-horn" x1="0" y1="0" x2="1" y2="1">
+                              <stop offset="0" stop-color="#7b7062"/>
+                              <stop offset="1" stop-color="#3d362f"/>
+                            </linearGradient>
+                          </defs>
+                          <!-- far legs (behind the body, in shadow) -->
+                          <g class="leg leg-fh" transform="translate(-27 -44)" fill="#24170f">
+                            <g class="seg-top"><path d="M-8 -4 C-9 8 -5 17 -1 23 L5 21 C6 11 7 2 6 -6 Z"/>
+                              <g class="seg-low" transform="translate(2 21)"><path d="M-3 0 L-2.6 17 L2.2 17 L3 0 Z"/><path d="M-3 16 L2.6 16 L3.4 21 L-3 21 Z" fill="#120b07"/></g></g>
+                          </g>
+                          <g class="leg leg-ff" transform="translate(21 -39)" fill="#24170f">
+                            <g class="seg-top"><path d="M-6 -4 C-7 6 -4 15 -3 20 L3 20 C4 13 6 5 6 -4 Z"/>
+                              <g class="seg-low" transform="translate(0 19.5)"><path d="M-3 0 L-2.5 15.5 L2.5 15.5 L3 0 Z"/><path d="M-3 15 L3 15 L3.6 19.5 L-3 19.5 Z" fill="#120b07"/></g></g>
+                          </g>
+                          <g class="tahr-body">
+                            <!-- tail -->
+                            <path class="tahr-tail" d="M-41 -52 C-46 -50 -48 -45 -46 -41 C-43 -43 -40 -47 -38 -50 Z" fill="#3b261b"/>
+                            <!-- torso -->
+                            <path d="M-40 -51 C-45 -42 -41 -31 -31 -29 C-18 -27 0 -27 12 -28 C23 -29 30 -33 32 -42 C34 -51 30 -59 21 -61 C6 -64 -14 -61 -28 -61 C-36 -60 -39 -56 -40 -51 Z" fill="url(#tahr-coat)"/>
+                            <!-- light saddle patch of an adult "saddleback" -->
+                            <path d="M-25 -58 C-12 -62 4 -62 13 -59 C7 -53 -12 -52 -26 -54 Z" fill="#a8977f" opacity="0.75"/>
+                            <!-- muscle shading: shoulder and haunch -->
+                            <path d="M-38 -48 C-35 -40 -29 -35 -21 -34 C-27 -39 -30 -45 -31 -52 Z" fill="#2e1e15" opacity="0.22"/>
+                            <path d="M15 -55 C20 -49 22 -42 21 -34 C27 -38 29 -46 26 -53 Z" fill="#2e1e15" opacity="0.22"/>
+                            <!-- head and neck -->
+                            <g class="tahr-head">
+                              <path d="M14 -58 C22 -67 31 -74 38 -78 L49 -71 C43 -61 37 -49 31 -38 C25 -42 18 -50 14 -58 Z" fill="#4c3225"/>
+                              <path d="M22 -66 C28 -70 33 -73 37 -76" stroke="#6b4935" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+                              <path d="M36 -80 C43 -82 50 -78 57 -69 C60 -65 63 -61 62 -58 C61 -55 57 -55 53 -57 L41 -65 C37 -68 34 -75 36 -80 Z" fill="#452d21"/>
+                              <path d="M52 -66 C56 -63 60 -61 62 -59 C62 -56 59 -55 56 -56 C53 -58 51 -62 52 -66 Z" fill="#7d604e"/>
+                              <circle cx="60.2" cy="-59" r="0.9" fill="#120b07"/>
+                              <path class="tahr-ear" d="M38 -75 C34 -77 30 -77 28 -75.5 C31 -73.5 35 -73 38 -73 Z" fill="#33211a"/>
+                              <circle cx="45.2" cy="-75.4" r="1.6" fill="#120b07"/>
+                              <circle cx="45.7" cy="-75.9" r="0.5" fill="#f3ead6"/>
+                              <!-- short, ridged horns curving back -->
+                              <path d="M33 -79 C33 -86 28 -90 20 -88 C16 -87 14 -85 13 -82 C17 -84 22 -84 26 -81 C29 -79 30 -76 31 -75 C34 -75 37 -77 39 -79 Z" fill="url(#tahr-horn)"/>
+                              <path d="M34 -80 C32 -84 27 -86 21 -85" stroke="#9a8f80" stroke-width="0.9" fill="none" stroke-linecap="round" opacity="0.7"/>
+                            </g>
+                          </g>
+                          <!-- near legs -->
+                          <g class="leg leg-nh" transform="translate(-25 -44)">
+                            <g class="seg-top"><path d="M-8 -4 C-9 8 -5 17 -1 23 L5 21 C6 11 7 2 6 -6 Z" fill="#4a3123"/>
+                              <g class="seg-low" transform="translate(2 21)"><path d="M-3 0 L-2.6 17 L2.2 17 L3 0 Z" fill="#33231a"/><path d="M-3 16 L2.6 16 L3.4 21 L-3 21 Z" fill="#160e09"/></g></g>
+                          </g>
+                          <g class="leg leg-nf" transform="translate(23 -39)">
+                            <g class="seg-top"><path d="M-6 -4 C-7 6 -4 15 -3 20 L3 20 C4 13 6 5 6 -4 Z" fill="#4a3123"/>
+                              <g class="seg-low" transform="translate(0 19.5)"><path d="M-3 0 L-2.5 15.5 L2.5 15.5 L3 0 Z" fill="#33231a"/><path d="M-3 15 L3 15 L3.6 19.5 L-3 19.5 Z" fill="#160e09"/></g></g>
+                          </g>
+                        </g>
+                    </g>
+                        </g>
+                    </g>
                 </g>
             </svg>
 
@@ -122,6 +193,7 @@
             </svg>
 
             <div class="story-night-tint"></div>
+            <p class="summit-bubble">Vanakkam! Welcome to STK IF</p>
         </div>
 
         <nav class="story-nav" aria-label="Story chapters">
@@ -130,6 +202,8 @@
                 <li><a href="#sunrise"><span>Sunrise</span></a></li>
                 <li><a href="#culture"><span>Culture</span></a></li>
                 <li><a href="#sport"><span>Sports</span></a></li>
+                <li><a href="#youth"><span>Youth</span></a></li>
+                <li><a href="#family"><span>Family</span></a></li>
                 <li><a href="#community"><span>Community</span></a></li>
                 <li><a href="#summit"><span>Summit</span></a></li>
             </ol>
@@ -181,19 +255,43 @@
                 </div>
             </div>
 
-            <!-- 5. Community -->
+            <!-- 5. Youth -->
+            <div class="chapter chapter--left" id="youth">
+                <div class="chapter-card chapter-card--photo">
+                    <img src="images/story/youth.webp" width="720" height="960" loading="lazy" decoding="async" alt="A child and an adult playing carrom together">
+                    <div class="chapter-text">
+                        <span class="chapter-num" aria-hidden="true">03</span>
+                        <h2>Youth</h2>
+                        <p>Learn, Create, and Share — for children, youth and adults.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Family -->
+            <div class="chapter chapter--right" id="family">
+                <div class="chapter-card chapter-card--photo">
+                    <img src="images/story/family.webp" width="720" height="960" loading="lazy" decoding="async" alt="A family on a forest walk at a club outing">
+                    <div class="chapter-text">
+                        <span class="chapter-num" aria-hidden="true">04</span>
+                        <h2>Family</h2>
+                        <p>Outdoor days and celebrations across generations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Community -->
             <div class="chapter chapter--left" id="community">
                 <div class="chapter-card chapter-card--photo">
                     <img src="images/story/community.webp" width="720" height="960" loading="lazy" decoding="async" alt="Club families together on the lawn at a summer get-together">
                     <div class="chapter-text">
-                        <span class="chapter-num" aria-hidden="true">03</span>
+                        <span class="chapter-num" aria-hidden="true">05</span>
                         <h2>Community</h2>
                         <p>Swedish–Tamil exchange for newcomers, volunteers and everyone.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- 6. Summit -->
+            <!-- 8. Summit -->
             <div class="chapter chapter-summit" id="summit">
                 <div class="chapter-card chapter-card--center">
                     <h2 class="summit-heading">Climb with us</h2>
@@ -202,6 +300,14 @@
                         <a class="button button-register" href="joinus.html">Join Us</a>
                         <a class="button button-secondary" href="events.html">See events</a>
                     </div>
+                    <a class="summit-event" href="events.html">
+                        <img src="posters/poster-1.jpg" width="56" height="78" loading="lazy" alt="">
+                        <div class="summit-event-text">
+                            <div class="summit-event-label">Next event</div>
+                            <div class="summit-event-title">SSK IF Diwali</div>
+                            <div class="summit-event-date">Nov 7. 11:00-16:00</div>
+                        </div>
+                    </a>
                 </div>
             </div>
 

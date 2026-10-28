@@ -362,5 +362,9 @@ window.STK_TRANSLATIONS.ta = {
     "A young runner getting ready for a race":
         "ஓட்டப் போட்டிக்குத் தயாராகும் ஒரு இளம் ஓட்டக்காரர்",
     "Club families together on the lawn at a summer get-together":
-        "கோடைக்கால ஒன்றுகூடலில் புல்வெளியில் ஒன்றாகச் சங்கக் குடும்பங்கள்"
+        "கோடைக்கால ஒன்றுகூடலில் புல்வெளியில் ஒன்றாகச் சங்கக் குடும்பங்கள்",
+    "A child and an adult playing carrom together":
+        "ஒரு குழந்தையும் பெரியவரும் சேர்ந்து கேரம் விளையாடுகிறார்கள்",
+    "A family on a forest walk at a club outing":
+        "சங்கச் சுற்றுலாவில் காட்டுப் பாதையில் நடக்கும் ஒரு குடும்பம்"
 };

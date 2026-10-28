@@ -84,17 +84,76 @@
         story.style.setProperty("--oy", Math.round(h - (900 - 360) * scale) + "px");   // summit is at y=360
     }
 
+    // ---------- The tahr's walk ----------
+    // The legs follow a real four-beat walk (left hind, left fore, right hind, right fore).
+    // The walk is tied to the distance travelled, so the hooves don't slide: scroll slowly
+    // and the tahr walks slowly; stop scrolling and it stops mid-step.
+    var STRIDE = 29;   // distance along the trail covered by one full stride
+    var LEGS = { nh: 0, nf: 0.25, fh: 0.5, ff: 0.75 };
+    var legParts = {};
+    var tahrBody = climber && climber.querySelector(".tahr-body");
+    var turn = climber && climber.querySelector(".tahr-turn");
+    var lean = climber && climber.querySelector(".tahr-lean");
+    Object.keys(LEGS).forEach(function (k) {
+        var leg = climber && climber.querySelector(".leg-" + k);
+        if (!leg) return;
+        var low = leg.querySelector(".seg-low");
+        legParts[k] = { top: leg.querySelector(".seg-top"), low: low, lowBase: low.getAttribute("transform") };
+    });
+
+    function legAngles(k, cycle, amount) {
+        var c = ((cycle + LEGS[k]) % 1 + 1) % 1;
+        var hind = k.charAt(1) === "h";
+        var reach = hind ? 17 : 19;
+        var top, low = 0;
+        if (c < 0.62) {
+            top = -reach + 2 * reach * (c / 0.62);                    // hoof on the ground, pushing back
+        } else {
+            var w = (c - 0.62) / 0.38;                                  // hoof lifted, swinging forward
+            top = reach - 2 * reach * (0.5 - 0.5 * Math.cos(Math.PI * w));
+            low = Math.sin(Math.PI * w) * (hind ? -30 : 48);            // knee or hock bends to lift the hoof
+        }
+        var restTop = hind ? -6 : 0, restLow = hind ? 12 : 0;           // the hind hock points backwards
+        return { top: restTop + top * amount, low: restLow + low * amount };
+    }
+
+    var facing = 1;
     function moveClimber(tp) {
         if (!trailLength || !climber) return;
         var at = tp * trailLength;
         var here = trail.getPointAtLength(at);
         var ahead = trail.getPointAtLength(Math.min(trailLength, at + 2));
         var behind = trail.getPointAtLength(Math.max(0, at - 2));
-        var facing = ahead.x - behind.x < 0 ? -1 : 1;
-        // Little hops every 22 units along the path; feet on the ground at the top
-        var hop = Math.abs(Math.sin(at / 22 * Math.PI)) * 9 * (1 - ease(0.96, 1, tp));
-        climber.setAttribute("transform",
-            "translate(" + here.x.toFixed(1) + " " + (here.y - hop).toFixed(1) + ") scale(" + facing + " 1)");
+        if (Math.abs(ahead.x - behind.x) > 0.01) facing = ahead.x - behind.x < 0 ? -1 : 1;
+
+        // Lean into the slope: nose up when climbing (smoothed around the bends)
+        var a = trail.getPointAtLength(Math.max(0, at - 12));
+        var b = trail.getPointAtLength(Math.min(trailLength, at + 12));
+        var slope = Math.atan2(b.y - a.y, Math.abs(b.x - a.x) || 0.001) * 180 / Math.PI;
+        var leanDeg = Math.max(-20, Math.min(20, slope * 0.45));
+
+        // Walk while climbing; settle into a still stance on the start and the summit
+        var amount = ease(0, 0.02, tp) * (1 - ease(0.97, 1, tp));
+        var cycle = at / STRIDE;
+        climber.setAttribute("transform", "translate(" + here.x.toFixed(1) + " " + here.y.toFixed(1) + ")");
+        if (turn) turn.style.transform = "scaleX(" + facing + ")";
+        if (lean) lean.setAttribute("transform", "rotate(" + (leanDeg * (1 - ease(0.97, 1, tp))).toFixed(1) + ")");
+        if (tahrBody) tahrBody.setAttribute("transform", "translate(0 " + (-1.3 * Math.cos(cycle * 4 * Math.PI) * amount).toFixed(2) + ")");
+        Object.keys(legParts).forEach(function (k) {
+            var ang = legAngles(k, cycle, amount), part = legParts[k];
+            part.top.setAttribute("transform", "rotate(" + ang.top.toFixed(1) + ")");
+            part.low.setAttribute("transform", part.lowBase + " rotate(" + ang.low.toFixed(1) + ")");
+        });
+    }
+
+    // Keep the greeting bubble just above the tahr's head
+    var bubble = story.querySelector(".summit-bubble");
+    function placeBubble() {
+        if (!bubble || !climber) return;
+        var box = climber.getBoundingClientRect();
+        var stage = story.querySelector(".story-stage").getBoundingClientRect();
+        bubble.style.left = Math.round(box.left + box.width / 2 - stage.left) + "px";
+        bubble.style.top = Math.round(box.top - stage.top - 8) + "px";
     }
 
     var lastP = -1;
@@ -107,14 +166,23 @@
         if (p === lastP) return;
         lastP = p;
 
-        var tp = ease(0.14, 0.9, p);
+        // Each part of the scene has its own stretch of the story (0 = top, 1 = bottom)
+        var tp = ease(0.1, 0.92, p);
+        var birds = clamp((p - 0.06) / 0.4);
         var s = story.style;
         s.setProperty("--p", p.toFixed(4));
-        s.setProperty("--night", (1 - ease(0.06, 0.32, p)).toFixed(3));
-        s.setProperty("--sun", ease(0.08, 0.45, p).toFixed(3));
-        s.setProperty("--glow", (0.7 * ease(0.08, 0.3, p) * (1 - 0.5 * ease(0.35, 0.7, p))).toFixed(3));
+        s.setProperty("--night", (1 - ease(0.03, 0.22, p)).toFixed(3));
+        s.setProperty("--sun", ease(0.05, 0.32, p).toFixed(3));
+        s.setProperty("--glow", (0.7 * ease(0.05, 0.22, p) * (1 - 0.5 * ease(0.3, 0.6, p))).toFixed(3));
         s.setProperty("--tp", tp.toFixed(4));
+        s.setProperty("--birds", birds.toFixed(4));
+        s.setProperty("--birdsop", (ease(0, 0.1, birds) * (1 - ease(0.85, 1, birds))).toFixed(3));
         moveClimber(tp);
+
+        // At the top: sparkles, a jump of joy and a "Vanakkam!" (css/experience.css)
+        var reached = tp > 0.995;
+        story.classList.toggle("summit-reached", reached);
+        if (reached) placeBubble();
     }
 
     var ticking = false;
