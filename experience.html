@@ -68,13 +68,18 @@
 
             <svg class="story-layer story-sun" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
                 <defs>
+                    <radialGradient id="sun-core">
+                        <stop offset="0" style="stop-color: var(--t-footer-text)"/>
+                        <stop offset="0.55" style="stop-color: var(--t-gold)"/>
+                        <stop offset="1" style="stop-color: var(--t-sun)"/>
+                    </radialGradient>
                     <radialGradient id="sun-halo">
                         <stop offset="0" style="stop-color: var(--t-sun); stop-opacity: 0.55"/>
                         <stop offset="1" style="stop-color: var(--t-sun); stop-opacity: 0"/>
                     </radialGradient>
                 </defs>
                 <circle cx="870" cy="285" r="190" fill="url(#sun-halo)"/>
-                <circle cx="870" cy="285" r="74" style="fill: var(--t-sun)"/>
+                <circle cx="870" cy="285" r="74" fill="url(#sun-core)"/>
             </svg>
 
 <svg class="story-layer story-birds" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
@@ -86,28 +91,36 @@
 
                         <!-- Far range with the summit, the trail and the climbing tahr -->
             <svg class="story-layer story-far" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
-                <path style="fill: var(--t-mtn-1)" d="M0 640 L140 560 L230 590 L330 470 L420 540 L520 470 L720 360 L800 420 L880 400 L1010 500 L1150 450 L1260 540 L1360 500 L1440 560 V900 H0 Z"/>
-                <path style="fill: var(--t-footer-text)" opacity="0.9" d="M720 360 L760 390 L745 388 L732 398 L718 388 L704 398 L690 386 L682 381 Z"/>
-                <path style="fill: var(--t-footer-text)" opacity="0.7" d="M1150 450 L1185 472 L1170 470 L1158 479 L1146 469 L1132 476 L1118 466 Z"/>
+                <!-- Painted far range; its main peak (1123, 444 in the picture) sits at the summit point (720, 360) -->
+                <rect x="-760" y="700" width="2960" height="700" fill="#44596f"/>
+                <image href="images/story/mountains-far.webp" x="-740" y="-217" width="2824" height="941"/>
                 <path class="trail" id="story-trail" d="M560 640 L690 590 L600 530 L700 480 L640 430 L720 362"/>
                 <path class="trail-done" d="M560 640 L690 590 L600 530 L700 480 L640 430 L720 362" pathLength="1"/>
                 <g class="summit-flag">
                     <path style="stroke: var(--t-heading)" stroke-width="3" stroke-linecap="round" d="M776 402 V336"/>
                     <path style="fill: var(--t-gold)" d="M777 336 L810 344 L777 354 Z"/>
                 </g>
-                <!-- The Nilgiri tahr. js/experience.js walks it up the trail: it turns at each bend
-                     and leans into the slope. -->
+                <!-- The Nilgiri tahr. js/experience.js walks it up the trail: it turns at each bend,
+                     leans into the slope and moves its legs in a real four-beat walk. -->
                 <g class="climber" transform="translate(720 362)">
                     <g class="tahr-turn">
                         <ellipse class="tahr-shadow" cx="0" cy="0" rx="38" ry="3.4"/>
                         <g class="tahr-lean">
-                            <!-- Three painted leg positions; js/experience.js blends between them as it walks -->
-                            <g class="tahr-photo">
-                                <image class="tahr-frame" href="images/story/tahr-walk-1.webp" x="-46.2" y="-89" width="92" height="89.3" opacity="0"/>
-                                <image class="tahr-frame" href="images/story/tahr-walk-2.webp" x="-46.2" y="-89" width="92" height="89.3" opacity="0"/>
-                                <image class="tahr-frame" href="images/story/tahr-walk-3.webp" x="-46.2" y="-89" width="92" height="89.3"/>
+                            <!-- Painted cut-out parts; js/experience.js swings the legs in a four-beat walk -->
+                            <g class="tahr-rig" transform="scale(0.0872) translate(-512 -688)">
+                                <g transform="translate(42 150)"><g class="tahr-tail"><image href="images/story/tahr-tail.webp" x="-60" y="-25" width="85" height="201"/></g></g>
+                                <g class="leg leg-fh" transform="translate(178 262)"><g class="seg-top"><g class="seg-low" transform="translate(-19 197)"><image href="images/story/tahr-hind-low-b.webp" x="-50" y="-18" width="214" height="235"/></g><image href="images/story/tahr-hind-up-b.webp" x="-115" y="-45" width="240" height="292"/></g></g>
+                                <g class="leg leg-ff" transform="translate(662 258)"><g class="seg-top"><g class="seg-low" transform="translate(10 197)"><image href="images/story/tahr-fore-low-b.webp" x="-48" y="-18" width="130" height="239"/></g><image href="images/story/tahr-fore-up-b.webp" x="-100" y="-45" width="215" height="281"/></g></g>
+                                <g class="tahr-body">
+                                    <image href="images/story/tahr-body.webp" x="0" y="0" width="835" height="379"/>
+                                    <g transform="translate(725 250)"><g class="tahr-head"><image href="images/story/tahr-head.webp" x="-95" y="-400" width="409" height="455"/></g></g>
+                                </g>
+                                <g class="leg leg-nh" transform="translate(150 265)"><g class="seg-top"><g class="seg-low" transform="translate(-28 191)"><image href="images/story/tahr-hind-low-a.webp" x="-50" y="-18" width="182" height="245"/></g><image href="images/story/tahr-hind-up-a.webp" x="-120" y="-45" width="268" height="284"/></g></g>
+                                <g class="leg leg-nf" transform="translate(690 262)"><g class="seg-top"><g class="seg-low" transform="translate(10 201)"><image href="images/story/tahr-fore-low-a.webp" x="-52" y="-18" width="119" height="242"/></g><image href="images/story/tahr-fore-up-a.webp" x="-100" y="-45" width="212" height="294"/></g></g>
                             </g>
                         </g>
+                        <!-- On the summit it stands proudly on a rock (css/experience.css fades it in) -->
+                        <image class="tahr-summit-pose" href="images/story/tahr-summit.webp" x="-55.2" y="-86" width="101.4" height="99.6"/>
                     </g>
                 </g>
             </svg>
@@ -115,13 +128,16 @@
             <div class="story-mist"></div>
 
             <svg class="story-layer story-mid" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
-                <path style="fill: var(--t-mtn-2)" d="M0 700 L120 620 L260 660 L380 590 L500 660 L600 700 L720 720 L840 700 L960 640 L1080 600 L1200 660 L1320 610 L1440 650 V900 H0 Z"/>
+                <!-- The same painted range, mirrored and in shadow, as a nearer ridge.
+                     Its main peak sits off to the right so the summit behind stays in view. -->
+                <rect x="-900" y="868" width="3300" height="600" fill="#2c3b4a"/>
+                <image href="images/story/mountains-mid.webp" x="51" y="156" width="2172" height="724"/>
             </svg>
 
             <div class="story-mist story-mist--low"></div>
 
             <svg class="story-layer story-near" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
-                <path style="fill: var(--t-mtn-3)" d="M0 780 C160 720 280 740 420 770 C540 795 620 800 720 805 C840 810 960 760 1100 740 C1240 720 1340 760 1440 750 V900 H0 Z"/>
+                <path fill="#1e2832" d="M0 780 C160 720 280 740 420 770 C540 795 620 800 720 805 C840 810 960 760 1100 740 C1240 720 1340 760 1440 750 V900 H0 Z"/>
             </svg>
 
             <svg class="story-layer story-front" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">

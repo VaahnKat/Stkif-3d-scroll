@@ -108,7 +108,7 @@
 
 /* On narrow screens the summit card is tall, so the summit rises above it instead */
 @media (max-width: 700px) {
-    .story-far { --far-shift: -15vh; }
+    .story-far { --far-shift: -8vh; }
 }
 
 .story-mid {
@@ -173,6 +173,38 @@
 .tahr-turn {
     transition: transform 0.35s ease-in-out;
 }
+
+/* Small signs of life, even when the scroll stops: the tail flicks */
+.story-live .tahr-tail {
+    transform-box: fill-box;
+    transform-origin: 70% 12%;
+    animation: tail-flick 3.4s ease-in-out infinite;
+}
+
+@keyframes tail-flick {
+    0%, 80%, 100% { transform: none; }
+    85% { transform: rotate(14deg); }
+    90% { transform: rotate(-4deg); }
+    94% { transform: rotate(8deg); }
+}
+
+/* At the summit the walking tahr gives way to the painting of it standing on a rock.
+   Without JavaScript, or with less motion, the still picture shows the summit pose. */
+.tahr-rig,
+.tahr-shadow,
+.tahr-summit-pose {
+    transition: opacity 0.7s ease;
+}
+
+.tahr-summit-pose { opacity: 0; }
+
+.summit-reached .tahr-summit-pose,
+.story:not(.story-live) .tahr-summit-pose { opacity: 1; }
+
+.summit-reached .tahr-rig,
+.summit-reached .tahr-shadow,
+.story:not(.story-live) .tahr-rig,
+.story:not(.story-live) .tahr-shadow { opacity: 0; }
 
 /* ---------- Birds at sunrise (only while the scene moves) ---------- */
 

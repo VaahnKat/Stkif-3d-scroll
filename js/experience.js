@@ -85,22 +85,36 @@
     }
 
     // ---------- The tahr's walk ----------
-    // Three painted leg positions (legs apart, half way, together). As the tahr moves
-    // along the trail the picture blends from one to the next and back, tied to the
-    // distance travelled: scroll slowly and it walks slowly, stop and it stops.
-    var HALF_STRIDE = 30;   // distance along the trail from legs apart to legs together and back
-    var frames = climber ? climber.querySelectorAll(".tahr-frame") : [];
-    var photo = climber && climber.querySelector(".tahr-photo");
+    // The tahr is built from painted parts. Each leg has an upper and a lower part that
+    // swing in a real four-beat walk (left hind, left fore, right hind, right fore).
+    // The walk is tied to the distance travelled, so the hooves don't slide: scroll slowly
+    // and the tahr walks slowly; stop scrolling and it stops mid-step.
+    var STRIDE = 37;   // distance along the trail covered by one full stride
+    var LEGS = { nh: 0, nf: 0.25, fh: 0.5, ff: 0.75 };
+    var legParts = {};
+    var body = climber && climber.querySelector(".tahr-body");
     var turn = climber && climber.querySelector(".tahr-turn");
     var lean = climber && climber.querySelector(".tahr-lean");
+    Object.keys(LEGS).forEach(function (k) {
+        var leg = climber && climber.querySelector(".leg-" + k);
+        if (!leg) return;
+        var low = leg.querySelector(".seg-low");
+        legParts[k] = { top: leg.querySelector(".seg-top"), low: low, lowBase: low.getAttribute("transform") };
+    });
 
-    // pose: 0 = legs apart, 1 = half way, 2 = legs together (standing)
-    function showPose(pose) {
-        var k = Math.min(Math.floor(pose), frames.length - 2);
-        Array.prototype.forEach.call(frames, function (f, i) {
-            var o = i === k ? 1 : i === k + 1 ? pose - k : 0;   // the later frame fades in on top
-            f.setAttribute("opacity", o.toFixed(2));
-        });
+    function legAngles(k, cycle, amount) {
+        var c = ((cycle + LEGS[k]) % 1 + 1) % 1;
+        var hind = k.charAt(1) === "h";
+        var reach = hind ? 16 : 17;
+        var top, low = 0;
+        if (c < 0.62) {
+            top = -reach + 2 * reach * (c / 0.62);                    // hoof on the ground, pushing back
+        } else {
+            var w = (c - 0.62) / 0.38;                                  // hoof lifted, swinging forward
+            top = reach - 2 * reach * (0.5 - 0.5 * Math.cos(Math.PI * w));
+            low = Math.sin(Math.PI * w) * (hind ? -28 : 44);            // knee or hock bends to lift the hoof
+        }
+        return { top: top * amount, low: low * amount };
     }
 
     var facing = 1;
@@ -118,17 +132,19 @@
         var slope = Math.atan2(b.y - a.y, Math.abs(b.x - a.x) || 0.001) * 180 / Math.PI;
         var leanDeg = Math.max(-20, Math.min(20, slope * 0.45));
 
-        // Walk while climbing; stand still with legs together at the start and on the summit
+        // Walk while climbing; settle into a still stance on the start and the summit
         var amount = ease(0, 0.02, tp) * (1 - ease(0.97, 1, tp));
-        var u = (at / HALF_STRIDE) % 2;                 // 0..2: apart -> together -> apart
-        var walkPose = u <= 1 ? u * 2 : (2 - u) * 2;
-        showPose(2 + (walkPose - 2) * amount);
-
+        var cycle = at / STRIDE;
         climber.setAttribute("transform", "translate(" + here.x.toFixed(1) + " " + here.y.toFixed(1) + ")");
         if (turn) turn.style.transform = "scaleX(" + facing + ")";
         if (lean) lean.setAttribute("transform", "rotate(" + (leanDeg * (1 - ease(0.97, 1, tp))).toFixed(1) + ")");
-        // the body rises a little as the legs come together
-        if (photo) photo.setAttribute("transform", "translate(0 " + (-1.2 * Math.sin(u * Math.PI) * amount).toFixed(2) + ")");
+        // the body rises and dips a little with each step (in the parts' own units)
+        if (body) body.setAttribute("transform", "translate(0 " + (-14 * Math.cos(cycle * 4 * Math.PI) * amount).toFixed(1) + ")");
+        Object.keys(legParts).forEach(function (k) {
+            var ang = legAngles(k, cycle, amount), part = legParts[k];
+            part.top.setAttribute("transform", "rotate(" + ang.top.toFixed(1) + ")");
+            part.low.setAttribute("transform", part.lowBase + " rotate(" + ang.low.toFixed(1) + ")");
+        });
     }
 
     // Keep the greeting bubble just above the tahr's head
