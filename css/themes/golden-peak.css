@@ -39,5 +39,7 @@
     --t-mtn-1: #e6dfcf;
     --t-mtn-2: #9b958a;
     --t-mtn-3: #504d47;
-    --t-cloud-light: 1;         /* brightness of the painted clouds on The Climb */
+    --t-cloud-opacity: 1;       /* how strongly the painted clouds show on The Climb */
+    --t-sky-dawn: linear-gradient(180deg, #2a2240 0%, #6b4a6e 34%, #d98b6a 66%, #f6c27a 100%);   /* The Climb: sky at sunrise */
+    --t-sky-day: linear-gradient(180deg, #a9bccb 0%, #dfe2dc 46%, #f8e6bf 100%);   /* The Climb: sky once the sun is up */
 }

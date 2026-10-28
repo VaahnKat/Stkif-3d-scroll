@@ -1,20 +1,29 @@
-/* Font files */
+/* Font files
+   Compressed WOFF2 copies that keep only the letters the site uses (English, Swedish
+   and other Latin letters; Tamil). Made from the .ttf originals in the fonts folder.
+   The weight range lets headings use the font's real bold instead of a faked one. */
 
 @font-face {
     font-family: 'Montserrat';
-    src: url("../fonts/Montserrat-VariableFont_wght.ttf");
+    src: url("../fonts/Montserrat-Variable-latin.woff2") format("woff2");
     font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'Montserrat';
-    src: url("../fonts/Montserrat-Italic-VariableFont_wght.ttf");
+    src: url("../fonts/Montserrat-Italic-Variable-latin.woff2") format("woff2");
     font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'Noto Sans Tamil';
-    src: url("../fonts/NotoSansTamil-VariableFont_wdth-wght.ttf");
+    src: url("../fonts/NotoSansTamil-Variable-tamil.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
 }
 
 /* Full Page Styles */

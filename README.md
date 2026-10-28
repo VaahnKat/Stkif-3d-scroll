@@ -34,12 +34,12 @@ Images are stored in the “images” folder. If you are adding an image to a fi
 However, if you are adding an image to a file that is within a subfolder of the parent folder (e.g. the css folder) you can link images by writing its path like below:
 `"..images/Venjanam-traditioanl-foods.jpg"`
 
-Fonts are in the fonts folder and can be installed through shared-files.css. For example:
+Fonts are in the fonts folder and are loaded in `css/shared-styles.css`. The site uses small compressed `.woff2` copies that keep only the letters it needs (English, Swedish and other Latin letters; Tamil); the `.ttf` files are the full originals they were made from. For example:
 ```
 @font-face {
     font-family: 'Montserrat';
-    src: url("../fonts/Montserrat-VariableFont_wght.ttf");
-    font-style: normal;
+    src: url("../fonts/Montserrat-Variable-latin.woff2") format("woff2");
+    font-weight: 100 900;
 }
 ```
 

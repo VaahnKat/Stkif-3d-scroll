@@ -14,6 +14,65 @@
     margin-top: 0;
 }
 
+/* See-through header: the scene shows faintly behind it instead of a solid bar.
+   (No background blur: blurring the moving scene every frame halves the frame rate.) */
+.experience-page header {
+    background: color-mix(in srgb, var(--t-header-bg) 82%, transparent) !important;
+}
+
+/* ---------- Loading screen ---------- */
+
+.story-loader {
+    display: none;
+}
+
+.story-loading .story-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 22px;
+    background: radial-gradient(60% 50% at 50% 45%, var(--t-footer-1), var(--t-footer-2));
+    /* safety net: never stay longer than 6 seconds, even if a picture fails to load */
+    animation: loader-out 0.6s ease 6s forwards;
+}
+
+.story-loader.is-done {
+    animation: loader-out 0.6s ease forwards;
+}
+
+.story-loader-crest {
+    width: clamp(110px, 18vh, 170px);
+    height: auto;
+    animation: loader-breathe 1.8s ease-in-out infinite;
+}
+
+.story-loader-bar {
+    width: 140px;
+    height: 3px;
+    border-radius: 3px;
+    background: color-mix(in srgb, var(--t-footer-text) 20%, transparent);
+    overflow: hidden;
+}
+
+.story-loader-bar span {
+    display: block;
+    height: 100%;
+    width: calc(var(--loaded, 0) * 100%);
+    background: var(--t-gold);
+    transition: width 0.3s ease;
+}
+
+@keyframes loader-breathe {
+    50% { transform: scale(1.05); filter: drop-shadow(0 0 18px var(--t-sun)); }
+}
+
+@keyframes loader-out {
+    to { opacity: 0; visibility: hidden; }
+}
+
 .story {
     --p: 0;
     --night: 0;
@@ -62,8 +121,13 @@
 }
 
 .story-sky {
-    background: var(--t-bg);
-    background-image: var(--t-body-glow);
+    background: var(--t-sky-day, var(--t-bg));
+}
+
+/* Rose and gold sunrise sky, strongest while the sun comes up */
+.story-sky--dawn {
+    background: var(--t-sky-dawn, var(--t-bg));
+    opacity: var(--dawn, 0);
 }
 
 .story-glow {
@@ -78,6 +142,11 @@
 
 .story-stars {
     opacity: var(--night);
+}
+
+/* The sunlight on the mountains grows as the sun rises */
+.story-sunlight {
+    opacity: calc(var(--sun) * 0.9);
 }
 
 /* Darkens the mountains before sunrise */
@@ -97,7 +166,8 @@
     will-change: transform;
 }
 
-.story-sun {
+.story-sun,
+.story-sunlight {
     transform: translate3d(calc(var(--mx) * -4px), calc((1 - var(--sun)) * 46vh), 0);
 }
 
@@ -135,24 +205,20 @@
     transform: translateY(calc(var(--p) * 40vh));
 }
 
+/* The goat path: soft and dusty, like a track worn into the slope */
 .trail {
     fill: none;
-    stroke: var(--t-mtn-3);
-    stroke-width: 2.5;
+    stroke: var(--t-footer-text);
+    stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-dasharray: 2 9;
-    opacity: 0.55;
+    opacity: 0.22;
 }
 
-.trail-done {
-    fill: none;
-    stroke: var(--t-accent);
-    stroke-width: 3;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-dasharray: 1;
-    stroke-dashoffset: calc(1 - var(--tp));
+.trail--worn {
+    stroke: var(--t-soft);
+    stroke-width: 9;
+    opacity: 0.16;
 }
 
 .summit-flag {
@@ -192,14 +258,18 @@
    Without JavaScript, or with less motion, the still picture shows the summit pose. */
 .tahr-rig,
 .tahr-shadow,
-.tahr-summit-pose {
+.tahr-summit-pose,
+.summit-mist {
     transition: opacity 0.7s ease;
 }
 
-.tahr-summit-pose { opacity: 0; }
+.tahr-summit-pose,
+.summit-mist { opacity: 0; }
 
 .summit-reached .tahr-summit-pose,
-.story:not(.story-live) .tahr-summit-pose { opacity: 1; }
+.summit-reached .summit-mist,
+.story:not(.story-live) .tahr-summit-pose,
+.story:not(.story-live) .summit-mist { opacity: 1; }
 
 .summit-reached .tahr-rig,
 .summit-reached .tahr-shadow,
@@ -215,54 +285,108 @@
 
 .story-live .story-birds { opacity: var(--birdsop, 0); }
 
-/* A few wingbeats, then a long glide, like a real kite riding the morning air */
-.kite-strip {
+/* A few wingbeats, then a long glide, like a real kite riding the morning air.
+   The 8 wing positions sit side by side in one picture; this steps through them. */
+.kite {
+    width: 100%;
+    height: 100%;
+    background: url("../images/story/kite-flight.webp") 0 0 / 800% 100% no-repeat;
     animation: kite-wingbeat 2.6s infinite;
     animation-timing-function: step-end;
 }
 
 @keyframes kite-wingbeat {
-    0.00% { transform: translateX(0px); }
-    6.25% { transform: translateX(-104px); }
-    12.50% { transform: translateX(-208px); }
-    18.75% { transform: translateX(-312px); }
-    25.00% { transform: translateX(-416px); }
-    31.25% { transform: translateX(-520px); }
-    37.50% { transform: translateX(-624px); }
-    43.75% { transform: translateX(-728px); }
-    50.00% { transform: translateX(-520px); }
-    56.25% { transform: translateX(-520px); }
-    62.50% { transform: translateX(-520px); }
-    68.75% { transform: translateX(-520px); }
-    75.00% { transform: translateX(-520px); }
-    81.25% { transform: translateX(-520px); }
-    87.50% { transform: translateX(-520px); }
-    93.75% { transform: translateX(-520px); }
-    100% { transform: translateX(0); }
+    0.00% { background-position: 0.000% 0; }
+    6.25% { background-position: 14.286% 0; }
+    12.50% { background-position: 28.571% 0; }
+    18.75% { background-position: 42.857% 0; }
+    25.00% { background-position: 57.143% 0; }
+    31.25% { background-position: 71.429% 0; }
+    37.50% { background-position: 85.714% 0; }
+    43.75% { background-position: 100.000% 0; }
+    50.00% { background-position: 71.429% 0; }
+    56.25% { background-position: 71.429% 0; }
+    62.50% { background-position: 71.429% 0; }
+    68.75% { background-position: 71.429% 0; }
+    75.00% { background-position: 71.429% 0; }
+    81.25% { background-position: 71.429% 0; }
+    87.50% { background-position: 71.429% 0; }
+    93.75% { background-position: 71.429% 0; }
+    100% { background-position: 0 0; }
 }
 
+/* Kites ride rising warm air: each one circles in a slow, tilted loop while the
+   flock crosses the sky, banking into the turns */
 .bird-fly {
-    animation: bird-drift 2.4s ease-in-out infinite;
+    width: 100%;
+    height: 100%;
+    animation: kite-soar 11s ease-in-out infinite;
 }
 
-.bird:nth-child(2) .kite-strip,
-.bird:nth-child(2) .bird-fly { animation-duration: 2.3s; animation-delay: -0.7s; }
-.bird:nth-child(3) .kite-strip,
-.bird:nth-child(3) .bird-fly { animation-duration: 2.9s; animation-delay: -1.3s; }
-.bird:nth-child(4) .kite-strip,
-.bird:nth-child(4) .bird-fly { animation-duration: 2.5s; animation-delay: -0.3s; }
+.bird:nth-child(2) .kite { animation-duration: 2.3s; animation-delay: -0.7s; }
+.bird:nth-child(3) .kite { animation-duration: 2.9s; animation-delay: -1.3s; }
+.bird:nth-child(4) .kite { animation-duration: 2.5s; animation-delay: -0.3s; }
 
-@keyframes bird-drift {
-    0%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-5px); }
-    75% { transform: translateY(3px); }
+.bird:nth-child(2) .bird-fly { animation-duration: 13s; animation-delay: -4s; }
+.bird:nth-child(3) .bird-fly { animation-duration: 9.5s; animation-delay: -7s; animation-direction: reverse; }
+.bird:nth-child(4) .bird-fly { animation-duration: 15s; animation-delay: -2s; }
+
+@keyframes kite-soar {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    25% { transform: translate(34px, -16px) rotate(-9deg) scale(0.94); }
+    50% { transform: translate(62px, -4px) rotate(3deg) scale(0.9); }
+    75% { transform: translate(30px, 12px) rotate(10deg) scale(0.96); }
+}
+
+/* A box with the scene's 1440 x 900 shape, filling the screen the same way the SVG
+   layers do (centred, cut at the sides or top, anchored to the bottom). Clouds and
+   kites are placed inside it in percentages of the scene. */
+.story-art {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: max(100%, calc(var(--stage-h) * 1.6));
+    aspect-ratio: 1440 / 900;
+    transform: translateX(-50%);
+}
+
+.story-art > * {
+    position: absolute;
+}
+
+/* ---------- Dust and pollen in the light ---------- */
+
+.story-motes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: calc(var(--sun) * 0.85);
+    transform: translate3d(calc(var(--mx) * -34px), calc(var(--my) * -14px), 0);
+}
+
+.mote {
+    position: absolute;
+    width: var(--s);
+    height: var(--s);
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--t-footer-text) 0%, var(--t-gold) 30%, color-mix(in srgb, var(--t-sun) 45%, transparent) 55%, transparent 72%);
+    animation: mote-float var(--d) ease-in-out var(--delay) infinite alternate;
+    will-change: transform, opacity;
+}
+
+@keyframes mote-float {
+    0% { transform: translate(0, 0); opacity: 0; }
+    20% { opacity: 0.9; }
+    60% { opacity: 0.5; }
+    100% { transform: translate(var(--dx), -60px); opacity: 0; }
 }
 
 /* ---------- Clouds ---------- */
 
-.story-clouds,
-.story-clouds-low {
-    filter: brightness(var(--t-cloud-light, 1));
+/* Clouds fade back at night and in the dark theme (opacity costs nothing to animate,
+   unlike a brightness filter on a full-screen layer) */
+.story-clouds {
+    opacity: calc(var(--t-cloud-opacity, 1) * (1 - var(--night) * 0.75));
 }
 
 .story-clouds {
@@ -270,7 +394,7 @@
 }
 
 .story-clouds-low {
-    opacity: 0.85;
+    opacity: calc(0.85 * var(--t-cloud-opacity, 1) * (1 - var(--night) * 0.75));
     transform: translate3d(calc(var(--mx) * -12px), calc(var(--p) * 20vh), 0);
 }
 
@@ -457,6 +581,17 @@
 }
 
 .chapter--left { justify-content: flex-start; }
+
+@media (max-width: 700px) {
+    .chapter:not(.chapter-dawn) {
+        align-items: flex-end;
+        padding-bottom: 84px;   /* clear of the round back-to-top button */
+    }
+
+    .chapter-card--photo img {
+        height: clamp(130px, 20vh, 200px);
+    }
+}
 .chapter--right { justify-content: flex-end; }
 
 @media (min-width: 900px) {
@@ -557,8 +692,6 @@
     border-radius: calc(var(--stk-radius) + 6px);
     border: 1px solid var(--t-line);
     background: var(--t-header-bg);
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
     box-shadow: var(--t-shadow-hover);
     color: var(--t-text);
 }
@@ -757,7 +890,8 @@
 
 @media (prefers-reduced-motion: reduce) {
     .dawn-cue::after,
-    .kite-strip,
+    .mote,
+    .kite,
     .bird-fly,
     .cloud { animation: none; }
     .story-nav span,

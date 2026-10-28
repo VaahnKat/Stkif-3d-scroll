@@ -12,16 +12,27 @@
     <meta property="og:title" content="The Climb | Stockholm Tamil Kultur &amp; IF">
     <meta property="og:description" content="Climb the mountain with the Nilgiri tahr and discover STK IF: culture, sport and community for every generation of the Tamil community in Stockholm.">
     <meta property="og:image" content="https://teamraat.github.io/STK-IF/images/og-image.jpg">
-    <link rel="stylesheet" href="css/shared-styles.css?v=20261027-1">
+    <link rel="stylesheet" href="css/shared-styles.css?v=20261028-1">
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="stylesheet" href="css/modern.css?v=20261027-1">
-    <link rel="stylesheet" href="css/theme.css?v=20261027-1" id="theme-css">
-    <link rel="stylesheet" href="css/mascots.css?v=20261027-1">
-    <link rel="stylesheet" href="css/refresh.css?v=20261027-1">
-    <link rel="stylesheet" href="css/experience.css?v=20261027-1">
+    <link rel="stylesheet" href="css/modern.css?v=20261028-1">
+    <link rel="stylesheet" href="css/theme.css?v=20261028-1" id="theme-css">
+    <link rel="stylesheet" href="css/mascots.css?v=20261028-1">
+    <link rel="stylesheet" href="css/refresh.css?v=20261028-1">
+    <link rel="stylesheet" href="css/experience.css?v=20261028-1">
     <link rel="preload" as="image" href="images/hero-logo.webp">
+    <link rel="preload" as="font" type="font/woff2" href="fonts/Montserrat-Variable-latin.woff2" crossorigin>
+    <script>
+        // Show the loading screen only for the moving version (js/experience.js removes it)
+        if (!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) document.documentElement.classList.add("story-loading");
+    </script>
 </head>
 <body class="experience-page">
+
+<!-- Loading screen while the mountain paintings arrive (decorative; the page text is already there) -->
+<div class="story-loader" aria-hidden="true">
+    <img class="story-loader-crest" src="images/hero-logo.webp" width="600" height="600" alt="">
+    <span class="story-loader-bar"><span></span></span>
+</div>
 
 <!-- Header-->
 
@@ -62,6 +73,7 @@
 
         <div class="story-stage" aria-hidden="true">
             <div class="story-sky"></div>
+            <div class="story-sky story-sky--dawn"></div>
             <div class="story-glow"></div>
             <div class="story-night"></div>
             <svg class="story-layer story-stars" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice"></svg>
@@ -82,27 +94,52 @@
                 <circle cx="870" cy="285" r="74" fill="url(#sun-core)"/>
             </svg>
 
-            <svg class="story-layer story-clouds" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
-                <image class="cloud" href="images/story/cloud-puff-1.webp" x="140" y="70" width="272" height="207"/>
-                <image class="cloud cloud--slow" href="images/story/cloud-bank-1.webp" x="520" y="150" width="560" height="142"/>
-                <image class="cloud cloud--slower" href="images/story/cloud-puff-2.webp" x="1050" y="110" width="226" height="171"/>
-            </svg>
+            <!-- Clouds and kites are page elements, not drawings, so the graphics card moves them
+                 without redrawing the sky. .story-art matches the 1440 x 900 scene on any screen. -->
+            <div class="story-layer story-clouds"><div class="story-art">
+                <img class="cloud" src="images/story/cloud-puff-1.webp" alt="" decoding="async" style="left:9.722%;top:7.778%;width:18.889%;height:23.000%">
+                <img class="cloud cloud--slow" src="images/story/cloud-bank-1.webp" alt="" decoding="async" style="left:36.111%;top:16.667%;width:38.889%;height:15.778%">
+                <img class="cloud cloud--slower" src="images/story/cloud-puff-2.webp" alt="" decoding="async" style="left:72.917%;top:12.222%;width:15.694%;height:19.000%">
+            </div></div>
 
-            <!-- Black kites: an 8-frame wingbeat strip that css/experience.css steps through -->
-            <svg class="story-layer story-birds" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
-                <g class="bird" transform="translate(700 210) scale(1.6)"><g class="bird-fly"><svg class="kite" x="-20" y="-29" width="40" height="58" viewBox="0 0 104 150"><image class="kite-strip" href="images/story/kite-flight.webp" width="832" height="150"/></svg></g></g>
-                <g class="bird" transform="translate(744 186) scale(1.3)"><g class="bird-fly"><svg class="kite" x="-20" y="-29" width="40" height="58" viewBox="0 0 104 150"><image class="kite-strip" href="images/story/kite-flight.webp" width="832" height="150"/></svg></g></g>
-                <g class="bird" transform="translate(660 176) scale(1.15)"><g class="bird-fly"><svg class="kite" x="-20" y="-29" width="40" height="58" viewBox="0 0 104 150"><image class="kite-strip" href="images/story/kite-flight.webp" width="832" height="150"/></svg></g></g>
-                <g class="bird" transform="translate(784 228) scale(1)"><g class="bird-fly"><svg class="kite" x="-20" y="-29" width="40" height="58" viewBox="0 0 104 150"><image class="kite-strip" href="images/story/kite-flight.webp" width="832" height="150"/></svg></g></g>
-            </svg>
+            <div class="story-layer story-birds"><div class="story-art">
+                <div class="bird" style="left:46.389%;top:18.178%;width:4.444%;height:10.311%"><div class="bird-fly"><div class="kite"></div></div></div>
+                <div class="bird" style="left:49.861%;top:16.478%;width:3.611%;height:8.378%"><div class="bird-fly"><div class="kite"></div></div></div>
+                <div class="bird" style="left:44.236%;top:15.850%;width:3.194%;height:7.411%"><div class="bird-fly"><div class="kite"></div></div></div>
+                <div class="bird" style="left:53.056%;top:22.111%;width:2.778%;height:6.444%"><div class="bird-fly"><div class="kite"></div></div></div>
+            </div></div>
 
-                        <!-- Far range with the summit, the trail and the climbing tahr -->
+            <!-- Far range: the painted mountains with the summit -->
             <svg class="story-layer story-far" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
                 <!-- Painted far range; its main peak (1123, 444 in the picture) sits at the summit point (720, 360) -->
                 <rect x="-760" y="700" width="2960" height="700" fill="#44596f"/>
                 <image href="images/story/mountains-far.webp" x="-740" y="-217" width="2824" height="941"/>
+            </svg>
+
+            <!-- Warm sunlight spilling over the far range from the sun's side -->
+            <svg class="story-layer story-sunlight" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+                <defs>
+                    <radialGradient id="sunlight">
+                        <stop offset="0" style="stop-color: var(--t-sun); stop-opacity: 0.55"/>
+                        <stop offset="0.45" style="stop-color: var(--t-sun); stop-opacity: 0.18"/>
+                        <stop offset="1" style="stop-color: var(--t-sun); stop-opacity: 0"/>
+                    </radialGradient>
+                </defs>
+                <ellipse cx="870" cy="330" rx="760" ry="520" fill="url(#sunlight)"/>
+            </svg>
+
+            <!-- The trail, flag and tahr on their own layer, moving exactly with the far range.
+                 Kept apart so the walking legs never force the big painting to be redrawn. -->
+            <svg class="story-layer story-far story-climb" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+                <defs>
+                    <radialGradient id="summit-mist">
+                        <stop offset="0" style="stop-color: var(--t-footer-text); stop-opacity: 0.85"/>
+                        <stop offset="1" style="stop-color: var(--t-footer-text); stop-opacity: 0"/>
+                    </radialGradient>
+                </defs>
+                <!-- A worn goat path: a soft dusty band with a narrower, paler track down the middle -->
+                <path class="trail trail--worn" d="M560 640 L690 590 L600 530 L700 480 L640 430 L720 362"/>
                 <path class="trail" id="story-trail" d="M560 640 L690 590 L600 530 L700 480 L640 430 L720 362"/>
-                <path class="trail-done" d="M560 640 L690 590 L600 530 L700 480 L640 430 L720 362" pathLength="1"/>
                 <g class="summit-flag">
                     <path style="stroke: var(--t-heading)" stroke-width="3" stroke-linecap="round" d="M776 402 V336"/>
                     <path style="fill: var(--t-gold)" d="M777 336 L810 344 L777 354 Z"/>
@@ -128,13 +165,15 @@
                         </g>
                         <!-- On the summit it stands proudly on a rock (css/experience.css fades it in) -->
                         <image class="tahr-summit-pose" href="images/story/tahr-summit.webp" x="-55.2" y="-86" width="101.4" height="99.6"/>
+                        <!-- a wisp of mist where the rock meets the peak -->
+                        <ellipse class="summit-mist" cx="0" cy="8" rx="64" ry="13" fill="url(#summit-mist)"/>
                     </g>
                 </g>
             </svg>
 
-            <svg class="story-layer story-clouds-low" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
-                <image class="cloud cloud--slow" href="images/story/cloud-bank-2.webp" x="820" y="560" width="760" height="206"/>
-            </svg>
+            <div class="story-layer story-clouds-low"><div class="story-art">
+                <img class="cloud cloud--slow" src="images/story/cloud-bank-2.webp" alt="" decoding="async" style="left:56.944%;top:62.222%;width:52.778%;height:22.889%">
+            </div></div>
 
             <div class="story-mist"></div>
 
@@ -166,6 +205,9 @@
                     <path d="M0 860 C200 820 360 870 560 880 C760 890 900 850 1100 860 C1260 868 1360 840 1440 850 V900 H0 Z"/>
                 </g>
             </svg>
+
+            <!-- Dust and pollen drifting in the sunlight, close to the camera (filled in by js/experience.js) -->
+            <div class="story-motes"></div>
 
             <div class="story-night-tint"></div>
             <p class="summit-bubble">Vanakkam! Welcome to STK IF</p>
@@ -315,10 +357,10 @@
 
     </footer>
 
-    <script src="lang/languages.js?v=20261027-1"></script>
-    <script src="js/i18n.js?v=20261027-1"></script>
-    <script src="mascots/mascot-list.js?v=20261027-1"></script>
-    <script src="js/site.js?v=20261027-1"></script>
-    <script src="js/experience.js?v=20261027-1"></script>
+    <script src="lang/languages.js?v=20261028-1"></script>
+    <script src="js/i18n.js?v=20261028-1"></script>
+    <script src="mascots/mascot-list.js?v=20261028-1"></script>
+    <script src="js/site.js?v=20261028-1"></script>
+    <script src="js/experience.js?v=20261028-1"></script>
 </body>
 </html>

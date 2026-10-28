@@ -38,6 +38,22 @@
     document.documentElement.style.scrollBehavior = "smooth";
     story.classList.add("story-live");
 
+    // ---------- Loading screen: wait for the paintings, then lift it ----------
+    var loader = document.querySelector(".story-loader");
+    if (loader) {
+        var sources = ["mountains-far", "mountains-mid", "tahr-body", "tahr-head", "tahr-summit", "kite-flight", "cloud-bank-1", "cloud-puff-1"];
+        var count = 0;
+        var finish = function () { loader.classList.add("is-done"); };
+        Promise.all(sources.map(function (name) {
+            var img = new Image();
+            img.src = "images/story/" + name + ".webp";
+            return (img.decode ? img.decode() : Promise.resolve()).catch(function () {}).then(function () {
+                count++;
+                loader.style.setProperty("--loaded", count / sources.length);
+            });
+        })).then(function () { setTimeout(finish, 250); });
+    }
+
     // ---------- Cards float in (in 3D) when they reach the screen ----------
     var reveal = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
@@ -50,16 +66,31 @@
     Array.prototype.forEach.call(chapters, function (c) { reveal.observe(c); });
 
     // ---------- Stars (they fade out as the sun comes up) ----------
+    // the same "random" sky every visit
+    var seed = 7;
+    function rand() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+
     var stars = story.querySelector(".story-stars");
     if (stars) {
-        var seed = 7;
-        var rand = function () { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
         var dots = "";
         for (var i = 0; i < 70; i++) {
             dots += '<circle cx="' + Math.round(rand() * 1440) + '" cy="' + Math.round(rand() * 520) +
                 '" r="' + (0.6 + rand() * 1.4).toFixed(1) + '" opacity="' + (0.4 + rand() * 0.6).toFixed(2) + '"/>';
         }
         stars.innerHTML = dots;
+    }
+
+    // ---------- Dust and pollen drifting in the light (more of them on the sun's side) ----------
+    var motes = story.querySelector(".story-motes");
+    if (motes) {
+        var html = "";
+        for (var m = 0; m < 14; m++) {
+            var x = Math.pow(rand(), 0.7) * 100;                 // lean towards the right, where the sun is
+            html += '<span class="mote" style="left:' + x.toFixed(1) + '%;top:' + (34 + rand() * 56).toFixed(1) +
+                '%;--s:' + (5 + rand() * 9).toFixed(1) + 'px;--d:' + (7 + rand() * 9).toFixed(1) +
+                's;--delay:' + (-rand() * 16).toFixed(1) + 's;--dx:' + (-40 + rand() * 80).toFixed(0) + 'px"></span>';
+        }
+        motes.innerHTML = html;
     }
 
     // ---------- Thin progress line at the top ----------
@@ -157,15 +188,38 @@
         bubble.style.top = Math.round(box.top - stage.top - 8) + "px";
     }
 
-    var lastP = -1;
-    function update() {
+    // ---------- Smooth glide ----------
+    // The page scrolls normally, but the scene eases towards the scroll position instead
+    // of jumping to it, so a mouse-wheel step or a flick on a phone becomes a smooth glide.
+    var GLIDE = 7;          // higher = follows the scroll more tightly (per second)
+    var shown = -1;         // the progress the scene is showing right now
+    var target = 0;         // the progress the scroll position asks for
+    var lastTime = 0, gliding = false;
+
+    function readScroll() {
         var rect = story.getBoundingClientRect();
         var range = story.offsetHeight - window.innerHeight;
-        var p = range > 0 ? clamp(-rect.top / range) : 0;
+        target = range > 0 ? clamp(-rect.top / range) : 0;
         // Hide the progress line and chapter dots once the story has scrolled past
         story.classList.toggle("story-past", rect.bottom < window.innerHeight * 0.5);
-        if (p === lastP) return;
-        lastP = p;
+    }
+
+    function glide(now) {
+        var dt = lastTime ? Math.min(0.1, (now - lastTime) / 1000) : 0.016;
+        lastTime = now;
+        if (shown < 0) shown = target;
+        shown += (target - shown) * (1 - Math.exp(-GLIDE * dt));
+        if (Math.abs(target - shown) < 0.0002) shown = target;
+        render(shown);
+        if (shown !== target) { requestAnimationFrame(glide); } else { gliding = false; lastTime = 0; }
+    }
+
+    function requestUpdate() {
+        readScroll();
+        if (!gliding) { gliding = true; requestAnimationFrame(glide); }
+    }
+
+    function render(p) {
 
         // Each part of the scene has its own stretch of the story (0 = top, 1 = bottom)
         var tp = ease(0.1, 0.92, p);
@@ -174,23 +228,17 @@
         s.setProperty("--p", p.toFixed(4));
         s.setProperty("--night", (1 - ease(0.03, 0.22, p)).toFixed(3));
         s.setProperty("--sun", ease(0.05, 0.32, p).toFixed(3));
+        s.setProperty("--dawn", (ease(0.02, 0.12, p) * (1 - ease(0.2, 0.42, p))).toFixed(3));
         s.setProperty("--glow", (0.7 * ease(0.05, 0.22, p) * (1 - 0.5 * ease(0.3, 0.6, p))).toFixed(3));
         s.setProperty("--tp", tp.toFixed(4));
         s.setProperty("--birds", birds.toFixed(4));
         s.setProperty("--birdsop", (ease(0, 0.1, birds) * (1 - ease(0.85, 1, birds))).toFixed(3));
         moveClimber(tp);
 
-        // At the top: sparkles, a jump of joy and a "Vanakkam!" (css/experience.css)
+        // At the top: the summit pose, the waving flag and a "Vanakkam!" (css/experience.css)
         var reached = tp > 0.995;
         story.classList.toggle("summit-reached", reached);
         if (reached) placeBubble();
-    }
-
-    var ticking = false;
-    function requestUpdate() {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () { ticking = false; update(); });
     }
 
     // ---------- Gentle 3D tilt that follows the mouse (computers only) ----------
@@ -215,7 +263,9 @@
     }
 
     placeSummit();
-    update();
+    readScroll();
+    shown = target;          // start exactly where the page opened, no glide
+    render(shown);
     window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", function () { placeSummit(); lastP = -1; requestUpdate(); });
+    window.addEventListener("resize", function () { placeSummit(); requestUpdate(); render(shown); });
 })();
