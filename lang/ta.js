@@ -368,5 +368,15 @@ window.STK_TRANSLATIONS.ta = {
     "A family on a forest walk at a club outing":
         "சங்கச் சுற்றுலாவில் காட்டுப் பாதையில் நடக்கும் ஒரு குடும்பம்",
     "Sound":
-        "ஒலி"
+        "ஒலி",
+
+    // About: palm-leaf quote
+    "Our oldest welcome":
+        "எங்கள் தொன்மையான வரவேற்பு",
+    "Every town is our town, everyone is our kin.":
+        "எல்லா ஊரும் நம் ஊரே; எல்லோரும் நம் உறவினரே.",
+    "Kaniyan Pungundranar, Puranānūru 192, about 2,000 years ago":
+        "கணியன் பூங்குன்றனார், புறநானூறு 192, ஏறத்தாழ 2,000 ஆண்டுகளுக்கு முன்பு",
+    "Written in Tamil two thousand years ago, it is still the spirit of our club.":
+        "இரண்டாயிரம் ஆண்டுகளுக்கு முன் தமிழில் எழுதப்பட்ட இவ்வரிகளே இன்றும் எங்கள் சங்கத்தின் உயிர்நாடி."
 };

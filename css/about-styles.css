@@ -34,7 +34,7 @@ main#about-page {
 .about-content {
     max-width: 800px;
     margin: 0 auto;
-    padding 0px 20px 0px;
+    padding: 0 20px;
 }
 
 .about-lead {
@@ -301,4 +301,250 @@ section#main-container {
         flex-direction: column;
         text-align: center;
     }
+}
+/* ==========================================================
+   Tamil touches (About page)
+   Colours come from the theme: --t-silk, --t-leaf, --t-marigold,
+   --t-palm and --t-palm-ink are set in every file in css/themes/.
+   ========================================================== */
+
+/* ---------- Thoranam: mango-leaf and marigold garland ---------- */
+#about-page .about-section {
+    position: relative;
+}
+
+#about-page .thoranam {
+    display: block;
+    width: 100%;
+    height: 70px;
+    margin: -8px 0 6px;
+    overflow: visible;
+}
+
+.thoranam-cord {
+    fill: none;
+    stroke: var(--t-accent-dark);
+    stroke-width: 2;
+}
+
+.thoranam .leaf {
+    fill: var(--t-leaf);
+    stroke: color-mix(in srgb, var(--t-leaf) 60%, #000);
+    stroke-width: 1;
+    transform-box: fill-box;
+    transform-origin: 50% 0;
+    animation: leaf-sway 4.6s ease-in-out infinite alternate;
+}
+
+.thoranam .leaf:nth-of-type(3n) { animation-duration: 5.4s; animation-delay: -1.2s; }
+.thoranam .leaf:nth-of-type(3n + 1) { animation-duration: 4.1s; animation-delay: -2.4s; }
+
+@keyframes leaf-sway {
+    from { transform: rotate(-4deg); }
+    to { transform: rotate(4deg); }
+}
+
+.thoranam .marigold circle { fill: var(--t-marigold); }
+.thoranam .marigold .marigold-in { fill: color-mix(in srgb, var(--t-marigold) 70%, var(--t-silk)); }
+
+/* ---------- Kolam watermark behind the heading ---------- */
+#about-page .about-header {
+    position: relative;
+    isolation: isolate;
+}
+
+.kolam-line,
+.kolam-ring {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.kolam-dot { fill: currentColor; }
+
+.kolam--hero {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: clamp(220px, 34vw, 340px);
+    height: auto;
+    translate: -50% -46%;
+    z-index: -1;
+    color: var(--t-accent);
+    opacity: 0.16;
+}
+
+.about-vanakkam {
+    margin: 0 0 4px;
+    font-family: 'Noto Sans Tamil', sans-serif;
+    font-size: clamp(18px, 2.2vw, 22px);
+    font-weight: 700;
+    color: var(--t-silk);
+    letter-spacing: 0.02em;
+}
+
+/* ---------- Zari border: the gold temple-tower border of a Kanchipuram silk saree ---------- */
+#about-page .card {
+    position: relative;
+    overflow: hidden;
+    padding-top: calc(2rem + 16px);
+    border-top-width: 1px !important;
+}
+
+#about-page .card::before,
+#about-page .card::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+/* maroon silk band with thin gold edges */
+#about-page .card::before {
+    height: 16px;
+    background:
+        linear-gradient(var(--t-gold) 0 1.5px, transparent 1.5px calc(100% - 1.5px), var(--t-gold) calc(100% - 1.5px)),
+        var(--t-silk);
+}
+
+/* gold temple towers woven into it */
+#about-page .card::after {
+    top: 3px;
+    height: 10px;
+    background: var(--t-gold);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 10'%3E%3Cpath d='M4 10V8.5h2.5V7H9V5.3h2.5V2.5h1.4V1h2.2v1.5h1.4v2.8H19V7h2.5v1.5H24V10z'/%3E%3Cpath d='M0 6.5 1.6 5 3.2 6.5 1.6 8zM28 6.5 26.4 5 24.8 6.5 26.4 8z'/%3E%3C/svg%3E") 0 0 / 28px 10px repeat-x;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 10'%3E%3Cpath d='M4 10V8.5h2.5V7H9V5.3h2.5V2.5h1.4V1h2.2v1.5h1.4v2.8H19V7h2.5v1.5H24V10z'/%3E%3Cpath d='M0 6.5 1.6 5 3.2 6.5 1.6 8zM28 6.5 26.4 5 24.8 6.5 26.4 8z'/%3E%3C/svg%3E") 0 0 / 28px 10px repeat-x;
+}
+
+/* ---------- Brass icons ---------- */
+.about-icon {
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+
+.icon-brass { fill: var(--t-accent-dark); }
+.icon-silk { fill: var(--t-silk); }
+.icon-flame { fill: var(--t-marigold); }
+.icon-foam { fill: var(--t-card); stroke: var(--t-accent-dark); stroke-width: 1.2; }
+
+.icon-brass-line,
+.icon-kolam-line {
+    fill: none;
+    stroke: var(--t-gold);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.icon-brass-line { stroke: var(--t-card); }
+.icon-kolam-dot { fill: var(--t-gold); }
+
+/* each icon sits on a round brass plate, like a puja thali */
+#about-page .heritage-icon,
+#about-page .card-icon {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 0.9rem;
+    border-radius: 50%;
+    line-height: 0;
+    background: radial-gradient(circle at 35% 30%, var(--t-card) 0%, var(--t-soft) 70%);
+    box-shadow: inset 0 0 0 2px var(--t-gold), inset 0 0 0 5px var(--t-card), inset 0 0 0 6px color-mix(in srgb, var(--t-gold) 55%, transparent);
+}
+
+/* Kolam dots as list bullets instead of tick marks */
+#about-page .feature-list li::before {
+    content: "";
+    top: 0.45em;
+    width: 9px;
+    height: 9px;
+    border: 2px solid var(--t-accent);
+    border-radius: 2px;
+    rotate: 45deg;
+    background: radial-gradient(circle, var(--t-accent) 0 1.6px, transparent 2px);
+}
+
+/* ---------- Olai chuvadi: palm-leaf manuscript ---------- */
+.olai-section {
+    margin: 0 0 2rem;
+    text-align: center;
+}
+
+.olai {
+    position: relative;
+    margin: 0.5rem auto 0.9rem;
+    max-width: 860px;
+    padding: clamp(22px, 3.4vw, 34px) clamp(46px, 9vw, 110px);
+    border-radius: 999px / 46%;
+    color: var(--t-palm-ink);
+    background:
+        /* the two holes the binding cord passes through */
+        radial-gradient(circle at 9% 50%, var(--t-palm-ink) 0 5px, color-mix(in srgb, var(--t-palm-ink) 35%, transparent) 6px, transparent 8px),
+        radial-gradient(circle at 91% 50%, var(--t-palm-ink) 0 5px, color-mix(in srgb, var(--t-palm-ink) 35%, transparent) 6px, transparent 8px),
+        /* fine fibres running along the leaf */
+        repeating-linear-gradient(180deg, transparent 0 5px, color-mix(in srgb, var(--t-palm-ink) 7%, transparent) 5px 6px),
+        /* darker, sun-aged edges */
+        radial-gradient(120% 140% at 50% 50%, var(--t-palm) 55%, color-mix(in srgb, var(--t-palm) 75%, var(--t-palm-ink)) 100%);
+    box-shadow: 0 10px 26px var(--t-shadow-color), inset 0 0 0 1px color-mix(in srgb, var(--t-palm-ink) 18%, transparent);
+}
+
+.olai blockquote {
+    margin: 0;
+}
+
+.olai-tamil {
+    margin: 0;
+    font-family: 'Noto Sans Tamil', sans-serif;
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 800;
+    line-height: 1.45;
+    /* letters scratched into the leaf with a stylus, then inked */
+    text-shadow: 0 1px 0 color-mix(in srgb, var(--t-palm) 60%, #fff);
+}
+
+.olai-english {
+    margin: 6px 0 0;
+    font-size: clamp(15px, 1.7vw, 18px);
+    font-style: italic;
+    font-weight: 600;
+}
+
+.olai figcaption {
+    margin-top: 10px;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    opacity: 0.8;
+}
+
+#about-page .olai-note {
+    margin: 0 auto;
+    max-width: 560px;
+    color: var(--t-muted);
+    font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+    .olai {
+        border-radius: 46px;
+        padding: 26px 22px 22px;
+        background-position: 0 0;
+    }
+    /* on narrow screens the holes sit at the top instead of the sides */
+    .olai {
+        background:
+            radial-gradient(circle at 22% 12px, var(--t-palm-ink) 0 4px, transparent 6px),
+            radial-gradient(circle at 78% 12px, var(--t-palm-ink) 0 4px, transparent 6px),
+            repeating-linear-gradient(180deg, transparent 0 5px, color-mix(in srgb, var(--t-palm-ink) 7%, transparent) 5px 6px),
+            radial-gradient(120% 140% at 50% 50%, var(--t-palm) 55%, color-mix(in srgb, var(--t-palm) 75%, var(--t-palm-ink)) 100%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .thoranam .leaf { animation: none; }
 }

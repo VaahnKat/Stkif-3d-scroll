@@ -41,4 +41,9 @@
     --t-sky-dawn: linear-gradient(180deg, #3b2a4d 0%, #a8607a 36%, #f2a07e 68%, #fbd3a6 100%);   /* The Climb: sky at sunrise */
     --t-sky-day: linear-gradient(180deg, #e9cfd6 0%, #fbe9e2 48%, #ffe4c4 100%);   /* The Climb: sky once the sun is up */
     --t-sky-paint: 0.6;   /* The Climb: how much of the painted sky shows (0 = only the colours above) */
+    --t-silk: #8e2a3a;           /* Tamil touches: temple-maroon silk */
+    --t-leaf: #5b7d34;           /* mango leaves of the thoranam garland */
+    --t-marigold: #f08a24;       /* marigold flowers */
+    --t-palm: #ecd6a6;           /* palm-leaf (olai) manuscript */
+    --t-palm-ink: #4f3019;        /* the writing on it */
 }

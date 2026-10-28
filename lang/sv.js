@@ -368,5 +368,15 @@ window.STK_TRANSLATIONS.sv = {
     "A family on a forest walk at a club outing":
         "En familj på skogspromenad under en utflykt med föreningen",
     "Sound":
-        "Ljud"
+        "Ljud",
+
+    // About: palm-leaf quote
+    "Our oldest welcome":
+        "Vår äldsta välkomsthälsning",
+    "Every town is our town, everyone is our kin.":
+        "Varje stad är vår stad, alla människor är vår släkt.",
+    "Kaniyan Pungundranar, Puranānūru 192, about 2,000 years ago":
+        "Kaniyan Pungundranar, Puranānūru 192, för cirka 2 000 år sedan",
+    "Written in Tamil two thousand years ago, it is still the spirit of our club.":
+        "Skrivet på tamil för tvåtusen år sedan – och fortfarande andan i vår förening."
 };
