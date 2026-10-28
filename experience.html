@@ -12,13 +12,13 @@
     <meta property="og:title" content="The Climb | Stockholm Tamil Kultur &amp; IF">
     <meta property="og:description" content="Climb the mountain with the Nilgiri tahr and discover STK IF: culture, sport and community for every generation of the Tamil community in Stockholm.">
     <meta property="og:image" content="https://teamraat.github.io/STK-IF/images/og-image.jpg">
-    <link rel="stylesheet" href="css/shared-styles.css?v=20261028-1">
+    <link rel="stylesheet" href="css/shared-styles.css?v=20261028-2">
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="stylesheet" href="css/modern.css?v=20261028-1">
-    <link rel="stylesheet" href="css/theme.css?v=20261028-1" id="theme-css">
-    <link rel="stylesheet" href="css/mascots.css?v=20261028-1">
-    <link rel="stylesheet" href="css/refresh.css?v=20261028-1">
-    <link rel="stylesheet" href="css/experience.css?v=20261028-1">
+    <link rel="stylesheet" href="css/modern.css?v=20261028-2">
+    <link rel="stylesheet" href="css/theme.css?v=20261028-2" id="theme-css">
+    <link rel="stylesheet" href="css/mascots.css?v=20261028-2">
+    <link rel="stylesheet" href="css/refresh.css?v=20261028-2">
+    <link rel="stylesheet" href="css/experience.css?v=20261028-2">
     <link rel="preload" as="image" href="images/hero-logo.webp">
     <link rel="preload" as="font" type="font/woff2" href="fonts/Montserrat-Variable-latin.woff2" crossorigin>
     <script>
@@ -74,6 +74,8 @@
         <div class="story-stage" aria-hidden="true">
             <div class="story-sky"></div>
             <div class="story-sky story-sky--dawn"></div>
+            <div class="story-sky story-sky--paint"></div>
+            <div class="story-sky story-sky--paint story-sky--paint-dawn"></div>
             <div class="story-glow"></div>
             <div class="story-night"></div>
             <svg class="story-layer story-stars" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice"></svg>
@@ -97,9 +99,9 @@
             <!-- Clouds and kites are page elements, not drawings, so the graphics card moves them
                  without redrawing the sky. .story-art matches the 1440 x 900 scene on any screen. -->
             <div class="story-layer story-clouds"><div class="story-art">
-                <img class="cloud" src="images/story/cloud-puff-1.webp" alt="" decoding="async" style="left:9.722%;top:7.778%;width:18.889%;height:23.000%">
-                <img class="cloud cloud--slow" src="images/story/cloud-bank-1.webp" alt="" decoding="async" style="left:36.111%;top:16.667%;width:38.889%;height:15.778%">
-                <img class="cloud cloud--slower" src="images/story/cloud-puff-2.webp" alt="" decoding="async" style="left:72.917%;top:12.222%;width:15.694%;height:19.000%">
+                <img class="cloud" data-src="images/story/cloud-puff-1.webp" alt="" decoding="async" style="left:9.722%;top:7.778%;width:18.889%;height:23.000%">
+                <img class="cloud cloud--slow" data-src="images/story/cloud-bank-1.webp" alt="" decoding="async" style="left:36.111%;top:16.667%;width:38.889%;height:15.778%">
+                <img class="cloud cloud--slower" data-src="images/story/cloud-puff-2.webp" alt="" decoding="async" style="left:72.917%;top:12.222%;width:15.694%;height:19.000%">
             </div></div>
 
             <div class="story-layer story-birds"><div class="story-art">
@@ -111,9 +113,9 @@
 
             <!-- Far range: the painted mountains with the summit -->
             <svg class="story-layer story-far" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
-                <!-- Painted far range; its main peak (1123, 444 in the picture) sits at the summit point (720, 360) -->
-                <rect x="-760" y="700" width="2960" height="700" fill="#44596f"/>
-                <image href="images/story/mountains-far.webp" x="-740" y="-217" width="2824" height="941"/>
+                <!-- Painted far range; its main peak sits off to the left, the goal on the horizon -->
+                <rect x="-1050" y="700" width="2960" height="700" fill="#44596f"/>
+                <image href="images/story/mountains-far.webp" x="-1030" y="-217" width="2824" height="941"/>
             </svg>
 
             <!-- Warm sunlight spilling over the far range from the sun's side -->
@@ -128,25 +130,43 @@
                 <ellipse cx="870" cy="330" rx="760" ry="520" fill="url(#sunlight)"/>
             </svg>
 
-            <!-- The trail, flag and tahr on their own layer, moving exactly with the far range.
+
+            <div class="story-layer story-clouds-low"><div class="story-art">
+                <img class="cloud cloud--slow" data-src="images/story/cloud-bank-2.webp" alt="" decoding="async" style="left:56.944%;top:62.222%;width:52.778%;height:22.889%">
+            </div></div>
+
+            <div class="story-mist"></div>
+
+            <svg class="story-layer story-mid" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+                <!-- Painted Nilgiri hills with shola forest; low in the middle so the far range shows -->
+                <image href="images/story/hills-mid.webp" x="-130" y="343" width="1700" height="708"/>
+            </svg>
+
+            <div class="story-mist story-mist--low"></div>
+
+            <svg class="story-layer story-near" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+                <!-- The near rocky ridge with the goat path the tahr climbs; its crest is the summit -->
+                <image href="images/story/ridge-near.webp" x="-108" y="279" width="1584" height="659"/>
+            </svg>
+
+            <!-- The flag and tahr on their own layer, moving exactly with the near ridge.
                  Kept apart so the walking legs never force the big painting to be redrawn. -->
-            <svg class="story-layer story-far story-climb" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+            <svg class="story-layer story-near story-climb" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
                 <defs>
                     <radialGradient id="summit-mist">
                         <stop offset="0" style="stop-color: var(--t-footer-text); stop-opacity: 0.85"/>
                         <stop offset="1" style="stop-color: var(--t-footer-text); stop-opacity: 0"/>
                     </radialGradient>
                 </defs>
-                <!-- A worn goat path: a soft dusty band with a narrower, paler track down the middle -->
-                <path class="trail trail--worn" d="M560 640 L690 590 L600 530 L700 480 L640 430 L720 362"/>
-                <path class="trail" id="story-trail" d="M560 640 L690 590 L600 530 L700 480 L640 430 L720 362"/>
+                <!-- The route of the goat path painted on the near ridge (invisible; the tahr follows it) -->
+                <path class="trail" id="story-trail" d="M88.9 760.3 L154.5 716.6 L234.8 696.1 L344.2 681.6 L446.3 665.5 L541.1 637.8 L475.4 615.9 L424.4 607.2 L475.4 598.4 L592.1 570.7 L723.4 540.1 L665.0 519.7 L570.2 501.4 L628.6 486.8 L730.7 465.0 L810.9 428.5 L759.8 410.3 L767.1 403.0"/>
                 <g class="summit-flag">
-                    <path style="stroke: var(--t-heading)" stroke-width="3" stroke-linecap="round" d="M776 402 V336"/>
-                    <path style="fill: var(--t-gold)" d="M777 336 L810 344 L777 354 Z"/>
+                    <path style="stroke: var(--t-heading)" stroke-width="3" stroke-linecap="round" d="M826 401 V341"/>
+                    <path style="fill: var(--t-gold)" d="M827 341 L860 349 L827 359 Z"/>
                 </g>
                 <!-- The Nilgiri tahr. js/experience.js walks it up the trail: it turns at each bend,
                      leans into the slope and moves its legs in a real four-beat walk. -->
-                <g class="climber" transform="translate(720 362)">
+                <g class="climber" transform="translate(767.1 403.0)">
                     <g class="tahr-turn">
                         <ellipse class="tahr-shadow" cx="0" cy="0" rx="38" ry="3.4"/>
                         <g class="tahr-lean">
@@ -171,40 +191,10 @@
                 </g>
             </svg>
 
-            <div class="story-layer story-clouds-low"><div class="story-art">
-                <img class="cloud cloud--slow" src="images/story/cloud-bank-2.webp" alt="" decoding="async" style="left:56.944%;top:62.222%;width:52.778%;height:22.889%">
+            <div class="story-layer story-front"><div class="story-art">
+                <!-- Pines and tall grass right in front of the camera; they sweep away as you climb -->
+                <img data-src="images/story/pines-front.webp" alt="" decoding="async" style="left:-7.5%;top:38.667%;width:115%;height:61.333%">
             </div></div>
-
-            <div class="story-mist"></div>
-
-            <svg class="story-layer story-mid" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
-                <!-- The same painted range, mirrored and in shadow, as a nearer ridge.
-                     Its main peak sits off to the right so the summit behind stays in view. -->
-                <rect x="-900" y="868" width="3300" height="600" fill="#2c3b4a"/>
-                <image href="images/story/mountains-mid.webp" x="51" y="156" width="2172" height="724"/>
-            </svg>
-
-            <div class="story-mist story-mist--low"></div>
-
-            <svg class="story-layer story-near" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
-                <path fill="#1e2832" d="M0 780 C160 720 280 740 420 770 C540 795 620 800 720 805 C840 810 960 760 1100 740 C1240 720 1340 760 1440 750 V900 H0 Z"/>
-            </svg>
-
-            <svg class="story-layer story-front" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
-                <defs>
-                    <symbol id="pine" viewBox="0 0 40 100">
-                        <path d="M20 0 L34 30 H26 L38 58 H28 L40 86 H23 V100 H17 V86 H0 L12 58 H2 L14 30 H6 Z"/>
-                    </symbol>
-                </defs>
-                <g style="fill: var(--t-footer-1)">
-                    <use href="#pine" x="30" y="690" width="70" height="175"/>
-                    <use href="#pine" x="105" y="740" width="50" height="125"/>
-                    <use href="#pine" x="1300" y="700" width="66" height="165"/>
-                    <use href="#pine" x="1250" y="755" width="44" height="110"/>
-                    <use href="#pine" x="1372" y="745" width="48" height="120"/>
-                    <path d="M0 860 C200 820 360 870 560 880 C760 890 900 850 1100 860 C1260 868 1360 840 1440 850 V900 H0 Z"/>
-                </g>
-            </svg>
 
             <!-- Dust and pollen drifting in the sunlight, close to the camera (filled in by js/experience.js) -->
             <div class="story-motes"></div>
@@ -357,10 +347,10 @@
 
     </footer>
 
-    <script src="lang/languages.js?v=20261028-1"></script>
-    <script src="js/i18n.js?v=20261028-1"></script>
-    <script src="mascots/mascot-list.js?v=20261028-1"></script>
-    <script src="js/site.js?v=20261028-1"></script>
-    <script src="js/experience.js?v=20261028-1"></script>
+    <script src="lang/languages.js?v=20261028-2"></script>
+    <script src="js/i18n.js?v=20261028-2"></script>
+    <script src="mascots/mascot-list.js?v=20261028-2"></script>
+    <script src="js/site.js?v=20261028-2"></script>
+    <script src="js/experience.js?v=20261028-2"></script>
 </body>
 </html>

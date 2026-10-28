@@ -125,6 +125,17 @@
 }
 
 /* Rose and gold sunrise sky, strongest while the sun comes up */
+/* Painted skies (themes choose how much with --t-sky-paint) */
+.story-sky--paint {
+    background: url("../images/story/sky-day.webp") center bottom / cover no-repeat;
+    opacity: var(--t-sky-paint, 0);
+}
+
+.story-sky--paint-dawn {
+    background-image: url("../images/story/sky-dawn.webp");
+    opacity: calc(var(--t-sky-paint, 0) * var(--dawn, 0));
+}
+
 .story-sky--dawn {
     background: var(--t-sky-dawn, var(--t-bg));
     opacity: var(--dawn, 0);
@@ -159,38 +170,36 @@
 
 .story-stars circle { fill: var(--t-footer-text); }
 
-/* Each layer moves and grows a different amount, which gives the feeling of depth:
-   the far mountains barely move, the trees in front rush past. */
+/* The camera pushes in towards the summit of the near ridge as you climb. Each layer
+   grows a different amount around that point, which gives the feeling of depth: the far
+   range barely moves, the pines in front rush past. On narrow screens --pan (set by
+   js/experience.js) slides the layers sideways so the tahr stays in view, nearer layers
+   moving further. */
 .story-layer {
-    transform-origin: 50% var(--oy);
+    overflow: visible;          /* paintings reach past the box, so a sideways pan never shows an edge */
+    transform-origin: var(--ox, 50%) var(--oy);
     will-change: transform;
 }
 
 .story-sun,
 .story-sunlight {
-    transform: translate3d(calc(var(--mx) * -4px), calc((1 - var(--sun)) * 46vh), 0);
+    transform: translate3d(calc(var(--mx) * -4px + var(--pan-x, 0px) * 0.15), calc((1 - var(--sun)) * 46vh + var(--pan-y, 0px) * 0.15), 0);
 }
 
 .story-far {
-    --far-shift: 60px;
-    transform: translate3d(calc(var(--mx) * -8px), calc(var(--p) * var(--far-shift) + var(--my) * -4px), 0) scale(calc(1 + var(--p) * 0.5));
-}
-
-/* On narrow screens the summit card is tall, so the summit rises above it instead */
-@media (max-width: 700px) {
-    .story-far { --far-shift: -8vh; }
+    transform: translate3d(calc(var(--mx) * -8px + var(--pan-x, 0px) * 0.3), calc(var(--p) * 20px + var(--my) * -4px + var(--pan-y, 0px) * 0.3), 0) scale(calc(1 + var(--p) * 0.1));
 }
 
 .story-mid {
-    transform: translate3d(calc(var(--mx) * -16px), calc(var(--p) * 26vh + var(--my) * -8px), 0) scale(calc(1 + var(--p) * 0.7));
+    transform: translate3d(calc(var(--mx) * -16px + var(--pan-x, 0px) * 0.6), calc(var(--p) * 4vh + var(--my) * -8px + var(--pan-y, 0px) * 0.6), 0) scale(calc(1 + var(--p) * 0.2));
 }
 
 .story-near {
-    transform: translate3d(calc(var(--mx) * -26px), calc(var(--p) * 46vh + var(--my) * -12px), 0) scale(calc(1 + var(--p) * 0.9));
+    transform: translate3d(calc(var(--mx) * -26px + var(--pan-x, 0px)), calc(var(--my) * -12px + var(--pan-y, 0px)), 0) scale(calc(1 + var(--p) * 0.32));
 }
 
 .story-front {
-    transform: translate3d(calc(var(--mx) * -40px), calc(var(--p) * 75vh + var(--my) * -16px), 0) scale(calc(1 + var(--p) * 1.2));
+    transform: translate3d(calc(var(--mx) * -40px + var(--pan-x, 0px)), calc(var(--p) * 10vh + var(--my) * -16px + var(--pan-y, 0px)), 0) scale(calc(1 + var(--p) * 0.55));
 }
 
 /* Thin haze between the ranges, like morning mist in the hills */
@@ -205,20 +214,10 @@
     transform: translateY(calc(var(--p) * 40vh));
 }
 
-/* The goat path: soft and dusty, like a track worn into the slope */
+/* The route the tahr follows; the path itself is painted on the ridge */
 .trail {
     fill: none;
-    stroke: var(--t-footer-text);
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    opacity: 0.22;
-}
-
-.trail--worn {
-    stroke: var(--t-soft);
-    stroke-width: 9;
-    opacity: 0.16;
+    stroke: none;
 }
 
 .summit-flag {
@@ -290,9 +289,14 @@
 .kite {
     width: 100%;
     height: 100%;
-    background: url("../images/story/kite-flight.webp") 0 0 / 800% 100% no-repeat;
+    background: 0 0 / 800% 100% no-repeat;
     animation: kite-wingbeat 2.6s infinite;
     animation-timing-function: step-end;
+}
+
+/* the kite picture is fetched after the main scene (js/experience.js adds .story-extras) */
+.story-extras .kite {
+    background-image: url("../images/story/kite-flight.webp");
 }
 
 @keyframes kite-wingbeat {
@@ -395,7 +399,7 @@
 
 .story-clouds-low {
     opacity: calc(0.85 * var(--t-cloud-opacity, 1) * (1 - var(--night) * 0.75));
-    transform: translate3d(calc(var(--mx) * -12px), calc(var(--p) * 20vh), 0);
+    transform: translate3d(calc(var(--mx) * -12px + var(--pan-x, 0px) * 0.45), calc(var(--p) * 8vh), 0);
 }
 
 .story-live .cloud {
@@ -583,9 +587,10 @@
 .chapter--left { justify-content: flex-start; }
 
 @media (max-width: 700px) {
-    .chapter:not(.chapter-dawn) {
-        align-items: flex-end;
-        padding-bottom: 84px;   /* clear of the round back-to-top button */
+    /* the tahr climbs in the lower half of the screen, so the cards sit at the top */
+    .chapter:not(.chapter-dawn):not(.chapter-summit) {
+        align-items: flex-start;
+        padding-top: 76px;
     }
 
     .chapter-card--photo img {

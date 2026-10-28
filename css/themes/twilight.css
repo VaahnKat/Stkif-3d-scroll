@@ -41,4 +41,5 @@
     --t-cloud-opacity: 0.55;    /* fainter clouds against the night sky */
     --t-sky-dawn: linear-gradient(180deg, #120d17 0%, #2b2036 34%, #5a3a5c 66%, #a7646a 100%);   /* The Climb: sky at sunrise */
     --t-sky-day: linear-gradient(180deg, #1c1526 0%, #34263f 50%, #6e4656 100%);   /* The Climb: sky once the sun is up */
+    --t-sky-paint: 0;   /* The Climb: how much of the painted sky shows (0 = only the colours above) */
 }

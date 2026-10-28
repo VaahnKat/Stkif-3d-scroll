@@ -7,7 +7,7 @@
 // As you scroll, this file works out how far through the story you are and hands
 // that to css/experience.css as numbers between 0 and 1 (--p, --night, --sun ...).
 // The CSS decides how much each mountain layer moves; the tahr's path up the
-// mountain is the dotted line with id="story-trail" in experience.html.
+// ridge is the invisible line with id="story-trail" in experience.html.
 
 (function () {
     "use strict";
@@ -32,8 +32,20 @@
         Array.prototype.forEach.call(chapters, function (c) { current.observe(c); });
     }
 
+    // ---------- Pines, clouds and kites load once the main scene is in ----------
+    var extrasLoaded = false;
+    function loadExtras() {
+        if (extrasLoaded) return;
+        extrasLoaded = true;
+        Array.prototype.forEach.call(story.querySelectorAll("img[data-src]"), function (img) {
+            img.src = img.getAttribute("data-src");
+        });
+        story.classList.add("story-extras");
+    }
+
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion || !("IntersectionObserver" in window)) return;
+    if (reduceMotion || !("IntersectionObserver" in window)) { loadExtras(); return; }
+    setTimeout(loadExtras, 6000);   // in any case, soon after the loading screen's safety net
 
     document.documentElement.style.scrollBehavior = "smooth";
     story.classList.add("story-live");
@@ -41,9 +53,9 @@
     // ---------- Loading screen: wait for the paintings, then lift it ----------
     var loader = document.querySelector(".story-loader");
     if (loader) {
-        var sources = ["mountains-far", "mountains-mid", "tahr-body", "tahr-head", "tahr-summit", "kite-flight", "cloud-bank-1", "cloud-puff-1"];
+        var sources = ["sky-day", "mountains-far", "hills-mid", "ridge-near", "tahr-body", "tahr-head"];
         var count = 0;
-        var finish = function () { loader.classList.add("is-done"); };
+        var finish = function () { loader.classList.add("is-done"); loadExtras(); };
         Promise.all(sources.map(function (name) {
             var img = new Image();
             img.src = "images/story/" + name + ".webp";
@@ -108,11 +120,37 @@
     // 0 before "from", 1 after "to", a smooth curve in between
     function ease(from, to, v) { var t = clamp((v - from) / (to - from)); return t * t * (3 - 2 * t); }
 
-    // Where the summit is on screen, so the camera zooms towards it on any screen shape
+    // The scene is drawn 1440 x 900 and fills the screen (centred, anchored to the bottom).
+    // The camera pushes in towards the summit of the near ridge, so find it on screen.
+    var SUMMIT = { x: 767, y: 403 };
+    var view = { scale: 1, half: 720 };
     function placeSummit() {
         var w = window.innerWidth, h = window.innerHeight;
-        var scale = Math.max(w / 1440, h / 900);   // the scene is drawn 1440 x 900 and fills the screen
-        story.style.setProperty("--oy", Math.round(h - (900 - 360) * scale) + "px");   // summit is at y=360
+        view.scale = Math.max(w / 1440, h / 900);
+        view.half = w / view.scale / 2;                          // half the visible width, in scene units
+        story.style.setProperty("--ox", Math.round(w / 2 + (SUMMIT.x - 720) * view.scale) + "px");
+        story.style.setProperty("--oy", Math.round(h - (900 - SUMMIT.y) * view.scale) + "px");
+    }
+
+    // On narrow screens the path is wider than the screen: slide the scene sideways
+    // just enough to keep the tahr in view, like a camera following it.
+    function panTo(x, zoom) {
+        var margin = Math.min(140, view.half * 0.3);
+        var onScreen = SUMMIT.x + (x - SUMMIT.x) * zoom;         // where the zoomed ridge puts it
+        var lo = 720 - view.half + margin, hi = 720 + view.half - margin, pan = 0;
+        if (onScreen < lo) pan = lo - onScreen;
+        else if (onScreen > hi) pan = hi - onScreen;
+        // never so far that the left edge of the ridge painting (x = -108) comes into view
+        var ridgeLeft = SUMMIT.x + (-108 - SUMMIT.x) * zoom;
+        pan = Math.min(pan, (720 - view.half) - ridgeLeft - 4);
+        story.style.setProperty("--pan-x", (pan * view.scale).toFixed(1) + "px");
+    }
+
+    // On phones the summit card fills the lower half, so for the last stretch the camera
+    // tilts down a little and the summit rises into the top of the screen.
+    function liftSummit(p) {
+        var lift = view.half < 400 ? ease(0.8, 1, p) * 170 : 0;
+        story.style.setProperty("--pan-y", (-lift * view.scale).toFixed(1) + "px");
     }
 
     // ---------- The tahr's walk ----------
@@ -163,10 +201,13 @@
         var slope = Math.atan2(b.y - a.y, Math.abs(b.x - a.x) || 0.001) * 180 / Math.PI;
         var leanDeg = Math.max(-20, Math.min(20, slope * 0.45));
 
+        // Further up the ridge is further from the camera, so the tahr looks smaller
+        var size = 0.72 + 0.43 * clamp((here.y - SUMMIT.y) / (760 - SUMMIT.y));
+
         // Walk while climbing; settle into a still stance on the start and the summit
         var amount = ease(0, 0.02, tp) * (1 - ease(0.97, 1, tp));
-        var cycle = at / STRIDE;
-        climber.setAttribute("transform", "translate(" + here.x.toFixed(1) + " " + here.y.toFixed(1) + ")");
+        var cycle = at / (STRIDE * size);
+        climber.setAttribute("transform", "translate(" + here.x.toFixed(1) + " " + here.y.toFixed(1) + ") scale(" + size.toFixed(3) + ")");
         if (turn) turn.style.transform = "scaleX(" + facing + ")";
         if (lean) lean.setAttribute("transform", "rotate(" + (leanDeg * (1 - ease(0.97, 1, tp))).toFixed(1) + ")");
         // the body rises and dips a little with each step (in the parts' own units)
@@ -176,6 +217,7 @@
             part.top.setAttribute("transform", "rotate(" + ang.top.toFixed(1) + ")");
             part.low.setAttribute("transform", part.lowBase + " rotate(" + ang.low.toFixed(1) + ")");
         });
+        return here.x;
     }
 
     // Keep the greeting bubble just above the tahr's head
@@ -233,7 +275,9 @@
         s.setProperty("--tp", tp.toFixed(4));
         s.setProperty("--birds", birds.toFixed(4));
         s.setProperty("--birdsop", (ease(0, 0.1, birds) * (1 - ease(0.85, 1, birds))).toFixed(3));
-        moveClimber(tp);
+        var tahrX = moveClimber(tp);
+        if (tahrX !== undefined) panTo(tahrX, 1 + p * 0.32);   // 0.32: how much .story-near grows (css)
+        liftSummit(p);
 
         // At the top: the summit pose, the waving flag and a "Vanakkam!" (css/experience.css)
         var reached = tp > 0.995;
